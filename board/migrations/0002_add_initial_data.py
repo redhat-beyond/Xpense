@@ -7,7 +7,7 @@ def add_initial_data(apps, schema_editor):
     Country = apps.get_model('board', 'Country')
     City = apps.get_model('board', 'City')
 
-    israel = Country.objects.create(name='Isreal')
+    israel = Country.objects.create(name='Israel')
     City.objects.create(name='Tel Aviv', country=israel)
     City.objects.create(name='Petah Tikva', country=israel)
     City.objects.create(name='Ramat Gan', country=israel)
