@@ -128,5 +128,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Vagrant
 .vagrant
 
+# sqlite
+db.sqlite3
