@@ -5,6 +5,11 @@ from django.core.validators import MinValueValidator
 class Country(models.Model):
     name = models.CharField(max_length=30)
 
+    def create_country(name):
+        country = Country(name=name)
+        country.save()
+        return country
+
     def __str__(self):
         return self.name
 
@@ -12,6 +17,11 @@ class Country(models.Model):
 class City(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
+
+    def create_city(name, country):
+        city = City(name=name, country=country)
+        city.save()
+        return city
 
     def __str__(self):
         return self.name
@@ -47,6 +57,20 @@ class House(models.Model):
                                            default=Job.OTHER)
     income = models.IntegerField(null=True, blank=True)
     children = models.IntegerField(null=True, blank=True)
+
+    @staticmethod
+    def create_house(house_id, name, public, country, city, parent_profession_1, parent_profession_2, income, children):
+        house = House(house_id=house_id,
+                      name=name,
+                      public=public,
+                      country=country,
+                      city=city,
+                      parent_profession_1=parent_profession_1,
+                      parent_profession_2=parent_profession_2,
+                      income=income,
+                      children=children)
+        house.save()
+        return house
 
     def __str__(self):
         return self.name
