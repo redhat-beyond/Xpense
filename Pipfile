@@ -9,6 +9,7 @@ tzdata = "*"
 
 [dev-packages]
 flake8 = "*"
+pytest-django = "*"
 
 [requires]
 python_version = "3.9"
