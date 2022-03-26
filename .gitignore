@@ -132,4 +132,6 @@ dmypy.json
 
 db.sqlite3
 
+# IDE configuration
 .idea
+.vscode
