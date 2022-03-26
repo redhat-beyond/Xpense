@@ -37,6 +37,7 @@ After the dependencies were installed and the VM initialized, you can proceed wo
 # Pull Request Standards 
  - Each Pull Request should focus on single responsibility principle.
  - **The Pull Request should not break any of the existing functionality**
+ - PRs title: <Component name>:  explanation in a few words
  - <ins>Description-</ins> the PR description should explain what changes have been made, and why. In addition, they should include a link to the relevant `issue`
  - Each pull request requires the approval of at least <ins>1 team members</ins> and one mentor before merging.
 
