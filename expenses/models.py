@@ -14,7 +14,7 @@ class Expenses(models.Model):
         KIDS = 'Kids'
         CULTURE = 'Culture'
         VACATIONS = 'Vacations'
-        OTHER = 'Other'
+        OTHER = 'Other2'
 
     category = models.CharField(
         max_length=32,
