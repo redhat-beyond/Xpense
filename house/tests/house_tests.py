@@ -1,7 +1,6 @@
 import pytest
 from house.models import House, City, Country
 
-HOUSE_ID = 1
 HOUSE_NAME = "House 1"
 HOUSE_PUBLIC = True
 COUNTRY = "Colorado"
@@ -25,7 +24,6 @@ def generate_city(generate_country):
 @pytest.fixture
 def generate_house(generate_country, generate_city):
     house = House.create_house(
-        house_id=HOUSE_ID,
         name=HOUSE_NAME,
         public=HOUSE_PUBLIC,
         country=generate_country,
@@ -42,8 +40,7 @@ def generate_house(generate_country, generate_city):
 class TestCourseModel:
     def test_create_house(self, generate_house):
         assert (
-            generate_house.house_id == HOUSE_ID
-            and generate_house.name == HOUSE_NAME
+            generate_house.name == HOUSE_NAME
             and generate_house.public == HOUSE_PUBLIC
             and generate_house.country.name == COUNTRY
             and generate_house.city.name == CITY

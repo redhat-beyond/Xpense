@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.core.validators import MinValueValidator
 
@@ -45,7 +46,7 @@ class Job(models.TextChoices):
 
 
 class House(models.Model):
-    house_id = models.IntegerField(primary_key=True, validators=[MinValueValidator(0)], default=0)
+    house_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=50)
     public = models.BooleanField(default=False)
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
@@ -56,9 +57,8 @@ class House(models.Model):
     children = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0)])
 
     @staticmethod
-    def create_house(house_id, name, public, country, city, parent_profession_1, parent_profession_2, income, children):
+    def create_house(name, public, country, city, parent_profession_1, parent_profession_2, income, children):
         house = House(
-            house_id=house_id,
             name=name,
             public=public,
             country=country,
