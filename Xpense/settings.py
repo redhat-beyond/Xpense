@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'expenses.apps.ExpensesConfig',
     'main.apps.mainConfig',
     'house.apps.HouseConfig',
+    'story.apps.StoryConfig',
 ]
 
 MIDDLEWARE = [
