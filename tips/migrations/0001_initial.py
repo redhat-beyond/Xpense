@@ -16,8 +16,8 @@ class Migration(migrations.Migration):
             name='Tip',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('author', models.CharField(max_length=32)),
-                ('text', models.TextField(max_length=200)),
+                ('author', models.CharField(max_length=200)),
+                ('text', models.TextField()),
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
                 ('category', models.CharField(choices=[('Rent', 'Rent'), ('Mortgage', 'Mortgage'), ('Bills', 'Bills'), ('Transportation', 'Transportation'), ('Clothing', 'Clothing'), ('Healthcare', 'Healthcare'), ('Food', 'Food'), ('Insurance', 'Insurance'), ('Kids', 'Kids'), ('Culture', 'Culture'), ('Vacations', 'Vacations'), ('Other', 'Other')], default='Other', max_length=32)),
             ],
