@@ -37,7 +37,7 @@ def generate_house(generate_country, generate_city):
 
 
 @pytest.mark.django_db
-class TestCourseModel:
+class TestHouseModel:
     def test_create_house(self, generate_house):
         assert (
             generate_house.name == HOUSE_NAME
