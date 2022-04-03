@@ -21,11 +21,7 @@ class Expenses(models.Model):
         OTHER = 'Other'
     description = models.TextField(max_length=250, default='')
 
-    category = models.CharField(
-        max_length=32,
-        choices=Category.choices,
-        default=Category.OTHER
-    )
+    category = models.CharField(max_length=32, choices=Category.choices, default=Category.OTHER)
 
     house_name = models.ForeignKey(House, on_delete=models.CASCADE)
     amount = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0)])

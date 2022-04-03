@@ -1,0 +1,35 @@
+{% extends "base.html" %} {%load static%} {%block content%}
+<body>
+  {% include 'sidebar.html' %}
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Country</th>
+        <th>City</th>
+        <th>Proffesion 1</th>
+        <th>Proffesion 2</th>
+        <th>Income</th>
+        <th>Children</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for house in all_houses %}
+      <tr>
+        <td>{{ house.name }}</td>
+        <td>{{ house.country.name }}</td>
+        <td>{{ house.city.name }}</td>
+        <td>{{ house.parent_profession_1 }}</td>
+        <td>{{ house.parent_profession_2 }}</td>
+        <td>{{ house.income }}</td>
+        <td>{{ house.children }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4">No person in the database.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+{% endblock %}
