@@ -4,12 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
-tzdata = "*"
+django = "==4.0.3"
+tzdata = "==2022.1"
 
 [dev-packages]
-flake8 = "*"
-pytest-django = "*"
+flake8 = "==4.0.1"
+pytest-django = "==4.5.2"
 
 [requires]
 python_version = "3.9"
