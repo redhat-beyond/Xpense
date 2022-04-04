@@ -1,11 +1,15 @@
 from django.db import models
+from django.utils import timezone
+from house.models import House
+from django.core.validators import MinValueValidator
 
 
 class Expenses(models.Model):
+
     class Category(models.TextChoices):
         RENT = 'Rent'
         MORTGAGE = 'Mortgage'
-        BILLS = 'bills'
+        BILLS = 'Bills'
         TRANSPORTATION = 'Transportation'
         CLOTHING = 'Clothing'
         HEALTHCARE = 'Healthcare'
@@ -22,5 +26,21 @@ class Expenses(models.Model):
         default=Category.OTHER
     )
 
+    house_name = models.ForeignKey(House, on_delete=models.CASCADE)
+    amount = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0)])
+    date = models.DateTimeField(timezone.now())
+    category = category
+
     def __str__(self):
-        return self.category
+        return f'Category:{self.category},Amount:{self.amount}'
+
+    @staticmethod
+    def create_expense(house_name, amount, date, category):
+        expense = Expenses(
+            house_name=house_name,
+            amount=amount,
+            date=date,
+            category=category
+        )
+        expense.save()
+        return expense
