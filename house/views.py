@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 from django.shortcuts import render
 from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE
 
 
+=======
+>>>>>>> 2bd9f3f (init routing)
 def home_page(request):
     return render(request, HOME_PAGE_ROUTE)
 
