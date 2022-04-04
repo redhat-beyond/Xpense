@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "==4.0.3"
 tzdata = "==2022.1"
+django_heroku = "*"
+psycopg2 = "*"
 
 [dev-packages]
 flake8 = "==4.0.1"
