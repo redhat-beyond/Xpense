@@ -11,8 +11,7 @@ def home_page(request):
 
 
 def global_page(request):
-    context = {'all_houses': House.objects.all()}
-    return render(request, GLOBAL_PAGE_ROUTE, context)
+    raise NotImplementedError
 
 
 def house_login(request):
