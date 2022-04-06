@@ -13,4 +13,4 @@ jobs:
       - name: Setup environment
         run: pipenv sync --dev
       - name: Run Flake8
-        run: pipenv run flake8 --max-line-length 120
+        run: pipenv run flake8 --max-line-length 120 --exclude=migrations
