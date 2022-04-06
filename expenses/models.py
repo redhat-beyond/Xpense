@@ -19,6 +19,7 @@ class Expenses(models.Model):
         CULTURE = 'Culture'
         VACATIONS = 'Vacations'
         OTHER = 'Other'
+    description = models.TextField(max_length=250, default='')
 
     category = models.CharField(
         max_length=32,
