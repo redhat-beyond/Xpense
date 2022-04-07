@@ -1,18 +1,8 @@
 {%block table%}
-<style>
-  .table {
-    text-align: center;
-  }
-</style>
-<script>
-  $(document).ready(function () {
-    console.log("table");
-  });
-</script>
-
-<table border="1" class="table">
+<table border="1" class="table" style="text-align: center">
   <thead>
     <tr>
+      <th>#</th>
       <th>Name</th>
       <th>Country</th>
       <th>City</th>
@@ -25,6 +15,7 @@
   <tbody>
     {% for house in all_houses %}
     <tr>
+      <td>{{ forloop.counter }}</td>
       <td>{{ house.name }}</td>
       <td>{{ house.country.name }}</td>
       <td>{{ house.city.name }}</td>

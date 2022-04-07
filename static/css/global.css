@@ -1,0 +1,49 @@
+.table-container {
+  height: 30%;
+  width: 85%;
+  overflow-x: hidden;
+  text-align: justify;
+  position: fixed;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  bottom: 0;
+  right: 0;
+}
+
+.sidebar-container {
+  height: 100%;
+  z-index: -1;
+  width: 15%;
+  text-align: justify;
+  position: fixed;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  bottom: 0;
+}
+.chart-container {
+  text-align: justify;
+  margin-top: 1.5em;
+  width: 85%;
+  position: fixed;
+  right: 0;
+}
+
+.table th {
+  text-align: center;
+  color: black;
+}
+.chart_card {
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin: 5px;
+}
+.chart_box {
+  position: relative;
+  height: 50vh;
+  width: 40vw;
+  margin-right: 30px;
+}

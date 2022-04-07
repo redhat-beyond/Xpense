@@ -7,6 +7,9 @@ def add_initial_data(apps, schema_editor):
     Country = apps.get_model('house', 'Country')
     City = apps.get_model('house', 'City')
 
+    other = Country.objects.create(name='Other')
+    City.objects.create(name='Other', country=other)
+
     israel = Country.objects.create(name='Israel')
     City.objects.create(name='Tel Aviv', country=israel)
     City.objects.create(name='Petah Tikva', country=israel)
