@@ -1,11 +1,16 @@
-{% extends 'sidebar.html'%} {%block table%}
+{%block table%}
+<style>
+  .table {
+    text-align: center;
+  }
+</style>
 <script>
   $(document).ready(function () {
     console.log("table");
   });
 </script>
 
-<table border="1">
+<table border="1" class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -18,11 +23,9 @@
     </tr>
   </thead>
   <tbody>
-    {% for house in houses %}
+    {% for house in all_houses %}
     <tr>
-      <td>
-        <a href="{% url 'house_change' house.pk %}">{{ house.name }}</a>
-      </td>
+      <td>{{ house.name }}</td>
       <td>{{ house.country.name }}</td>
       <td>{{ house.city.name }}</td>
       <td>{{ house.parent_profession_1 }}</td>
@@ -36,5 +39,5 @@
     </tr>
     {% endfor %}
   </tbody>
-  {%endblock table%}
 </table>
+{%endblock table%}

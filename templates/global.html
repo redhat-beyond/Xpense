@@ -1,35 +1,43 @@
 {% extends "base.html" %} {%load static%} {%block content%}
+<style>
+    {% comment %} center this div  at the center {% endcomment %}
+
+
+  .table-container {
+    height: 30%;
+    width: 85%;
+    overflow-x: hidden;
+    text-align: justify;
+    position: fixed;
+    margin:auto;
+    display: flex;
+    justify-content: center;
+    bottom: 0;
+    right: 0;
+  }
+
+  .sidebar-container{
+      height: 100%;
+      z-index: -1;
+      width: 15%;
+      text-align: justify;
+      position: fixed;
+      margin:auto;
+      display: flex;
+      justify-content: center;
+      bottom: 0;
+  }
+  .chart-container{
+        text-align: justify;
+        margin-top: 1.5em;
+        width:85%;
+        position: fixed;
+        right:0;
+    }
+</style>
 <body>
-  {% include 'sidebar.html' %}
-  <table border="1">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Country</th>
-        <th>City</th>
-        <th>Proffesion 1</th>
-        <th>Proffesion 2</th>
-        <th>Income</th>
-        <th>Children</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for house in all_houses %}
-      <tr>
-        <td>{{ house.name }}</td>
-        <td>{{ house.country.name }}</td>
-        <td>{{ house.city.name }}</td>
-        <td>{{ house.parent_profession_1 }}</td>
-        <td>{{ house.parent_profession_2 }}</td>
-        <td>{{ house.income }}</td>
-        <td>{{ house.children }}</td>
-      </tr>
-      {% empty %}
-      <tr>
-        <td colspan="4">No person in the database.</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <div class="sidebar-container">{% include 'sidebar.html' %}</div>
+  <div class="table-container">{% include 'table.html' %}</div>
+  <div class="chart-container">{% include 'chart.html' %}</div>
 </body>
 {% endblock %}

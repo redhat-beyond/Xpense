@@ -1,16 +1,27 @@
 from django.http import HttpResponse
+from house.models import Country, House, City
+from django.shortcuts import render
 
 
 def home_page(request):
-    return HttpResponse("home page")
+    return render(request, "home.html")
 
 
 def global_page(request):
-    filter_filled_1 = request.GET.get('filter_filled_1', '')
-    filter_filled_2 = request.GET.get('filter_filled_2', '')
-    return HttpResponse(
-        f'this is the dashboard,' f' filter_filled_1={filter_filled_1},' f' filter_filled_2={filter_filled_2}'
+    country = Country.objects.get(name="Israel")
+    House.create_house(
+        'House 1',
+        True,
+        Country.objects.get(name="Israel"),
+        City.objects.get(name="Tel Aviv", country=country),
+        'Teacher',
+        'Teacher',
+        100,
+        1,
     )
+    all_houses = House.objects.all()
+    context = {'all_houses': all_houses}
+    return render(request, 'global.html', context)
 
 
 def house_login(request):

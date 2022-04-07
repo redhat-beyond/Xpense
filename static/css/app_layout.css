@@ -41,3 +41,7 @@ body {
   vertical-align: top;
   position: relative;
 }
+
+.topnav {
+  z-index: 1000;
+}
