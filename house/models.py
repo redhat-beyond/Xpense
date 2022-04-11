@@ -55,6 +55,7 @@ class House(models.Model):
     parent_profession_2 = models.CharField(max_length=50, choices=Job.choices, default=Job.OTHER)
     income = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0)])
     children = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0)])
+    description = models.TextField(max_length=250, default='')
 
     @staticmethod
     def create_house(name, public, country, city, parent_profession_1, parent_profession_2, income, children):
