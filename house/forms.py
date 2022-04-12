@@ -10,8 +10,8 @@ class BaseForm(forms.ModelForm):
             if hasattr(bound_field, "field") and bound_field.field.required:
                 bound_field.field.widget.attrs["required"] = "required"
                 bound_field.field.required = False
-
-
+       
+        
 class HouseForm(BaseForm):
     class Meta:
         model = House
