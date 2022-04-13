@@ -29,7 +29,7 @@ class Expenses(models.Model):
 
     house_name = models.ForeignKey(House, on_delete=models.CASCADE)
     amount = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0)])
-    date = models.DateTimeField(timezone.now())
+    date = models.DateTimeField(default=timezone.now)
     category = category
 
     def __str__(self):
