@@ -1,0 +1,5 @@
+{% extends "base.html" %} {%load static%} {%block content%}
+Posted by {{tip.author}} at {{tip.date}} in {{ tip.category }}
+<h1>{{ tip.text }}</h1>
+<li><a href="/tips/">return</a></li>
+{% endblock %}
