@@ -1,0 +1,28 @@
+{%block table%}
+<table border="1" class="table" style="text-align: center">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Date</th>
+      <th>Category</th>
+      <th>Amount</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for expense in house_expenses %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ expense.date }}</td>
+      <td>{{ expense.category }}</td>
+      <td>{{ expense.amount }}</td>
+      <td>{{ expense.description }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="4">No expense in the database.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{%endblock table%}

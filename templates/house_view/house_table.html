@@ -1,0 +1,32 @@
+{%block table%}
+<table border="1" class="htable" style="text-align: center">
+    <tr>
+      <th>Name</th>
+        <td>{{ house.name }}</td>
+    </tr>
+    <tr>
+      <th>Country</th>
+        <td>{{ house.country.name }}</td>
+    </tr>
+    <tr>
+      <th>City</th>
+        <td>{{ house.city.name }}</td>
+    </tr>
+    <tr>
+      <th>Proffesion 1</th>
+        <td>{{ house.parent_profession_1 }}</td>
+    </tr>
+    <tr>
+      <th>Proffesion 2</th>
+        <td>{{ house.parent_profession_2 }}</td>
+    </tr>
+    <tr>
+      <th>Income</th>
+        <td>{{ house.income }}</td>
+    </tr>
+    <tr>
+      <th>Number of Children</th>
+        <td>{{ house.children }}</td>
+    </tr>
+</table>
+{%endblock table%}
