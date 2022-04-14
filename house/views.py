@@ -1,5 +1,6 @@
-from django.shortcuts import render
 from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE
+from .models import House
+from django.shortcuts import render
 
 
 def home_page(request):
@@ -7,7 +8,8 @@ def home_page(request):
 
 
 def global_page(request):
-    return render(request, GLOBAL_PAGE_ROUTE)
+    context = {'all_houses': House.objects.all()}
+    return render(request, GLOBAL_PAGE_ROUTE, context)
 
 
 def house_login(request):
