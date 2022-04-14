@@ -40,7 +40,6 @@ def generate_bad_form(request_factory):
 
 @pytest.mark.django_db
 class TestLoginViews:
-
     def test_login_template(self):
         try:
             get_template(LOGIN_PAGE_ROUTE)
@@ -57,7 +56,6 @@ class TestLoginViews:
 
 @pytest.mark.django_db
 class TestLoginForms:
-
     def test_form(self, generate_form):
         form = generate_form
         assert form.is_valid()

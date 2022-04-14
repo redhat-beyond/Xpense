@@ -58,7 +58,9 @@ class House(models.Model):
     description = models.TextField(max_length=250, default='')
 
     @staticmethod
-    def create_house(name, public, country, city, parent_profession_1, parent_profession_2, income, children):
+    def create_house(
+        name, public, country, city, parent_profession_1, parent_profession_2, income, children, description
+    ):
         house = House(
             name=name,
             public=public,
@@ -68,6 +70,7 @@ class House(models.Model):
             parent_profession_2=parent_profession_2,
             income=income,
             children=children,
+            description=description,
         )
         house.save()
         return house
