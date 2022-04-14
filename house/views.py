@@ -1,6 +1,7 @@
-from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE
+from house.constants import HOME_PAGE_ROUTE, HOUSE_PAGE_ROUTE, GLOBAL_PAGE_ROUTE
+from expenses.models import Expenses
+from django.shortcuts import render, get_object_or_404
 from .models import House
-from django.shortcuts import render
 
 
 def home_page(request):
