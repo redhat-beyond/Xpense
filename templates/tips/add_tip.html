@@ -1,0 +1,11 @@
+{% extends "base.html" %} {%load static%} {%block content%}
+<div class="newfrm">
+	<p class="newtip"><h1>New tip</h1></p>
+	<form method="POST">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Post">
+	</form>
+</div>
+<a class="btn btn-primary" href="/tips/" role="button">Cancel</a>
+{% endblock %}

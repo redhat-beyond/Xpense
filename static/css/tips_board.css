@@ -1,0 +1,41 @@
+      .author,
+      .eom {
+        color: grey;
+      }
+      .grid{
+          height:100%;
+          width:100%;
+      }
+      .item {
+        width: 50%;
+        background-color: grey;
+        position:relative;
+      }
+      .item p {
+        color: white;
+        text-align: center;
+      }
+      .item * {
+        color: white;
+        text-align: center;
+      }
+      .item--width2 {
+        width: 50%;
+      }
+      .date{
+          position: absolute;
+          top:0;
+          right:0;
+      }
+      .edit{
+        position: absolute;
+        bottom:0;
+        left:0;
+      }
+	  .delete{
+        position: absolute;
+        bottom:0;
+        right:0;
+      }
+    </style>
+
