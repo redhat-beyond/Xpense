@@ -1,0 +1,32 @@
+.table-container {
+  height: 30%;
+  width: 85%;
+  overflow-x: hidden;
+  text-align: justify;
+  position: fixed;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  bottom: 0;
+  right: 0;
+}
+
+.sidebar-container {
+  height: 100%;
+  z-index: -1;
+  width: 15%;
+  text-align: justify;
+  position: fixed;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  bottom: 0;
+}
+
+.chart-container {
+  text-align: justify;
+  margin-top: 1.5em;
+  width: 85%;
+  position: fixed;
+  right: 0;
+}
