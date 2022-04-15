@@ -1,7 +1,9 @@
+from django.shortcuts import render
+from house.constants import HOME_PAGE_ROUTE
 
 
 def home_page(request):
-    raise NotImplementedError
+    return render(request, HOME_PAGE_ROUTE)
 
 
 def global_page(request):
