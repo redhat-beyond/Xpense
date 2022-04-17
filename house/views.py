@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE
+from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, LOGIN_PAGE_ROUTE
 
 
 def home_page(request):
@@ -11,7 +11,7 @@ def global_page(request):
 
 
 def house_login(request):
-    raise NotImplementedError
+    return render(request, LOGIN_PAGE_ROUTE)
 
 
 def house_view(request, house_id):
