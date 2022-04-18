@@ -3,57 +3,59 @@
 <html lang="en">
   <head>
     <title>Tips</title>
-    <style type="text/css">
-      .author,
-      .eom {
-        color: grey;
-      }
-      .grid{
-          height:100%;
-          width:100%;
-      }
-      .item {
-        width: 20%;
-        background-color: grey;
-        position:relative;
-      }
-      .item p {
-        color: white;
-        text-align: center;
-      }
-      .item * {
-        color: white;
-        text-align: center;
-      }
-      .item--width2 {
-        width: 50%;
-      }
-      .date{
-          position: absolute;
-          bottom:0;
-          right:0;
-      }
-      .edit{
-        position: absolute;
-        bottom:0;
-        left:0;
-      }
-    </style>
+      <style>
+            .author,
+              .eom {
+                color: grey;
+              }
+              .grid{
+                  height:100%;
+                  width:100%;
+              }
+              .item {
+                width: 100%;
+                background-color: grey;
+                position:relative;
+              }
+              .item p {
+                color: white;
+                text-align: center;
+              }
+              .item * {
+                width: 100%;
+                color: white;
+                text-align: center;
+              }
+              .item--width2 {
+                width: 50%;
+              }
+              .date{
+                  position: relative;
+                  bottom:0;
+                  right:0;
+              }
+              .edit{
+                position: relative;
+                bottom:0;
+                left:0;
+              }
+      </style>
     <script src="https://unpkg.com/packery@2/dist/packery.pkgd.min.js"></script>
   </head>
   <body>
     <h1>Tips</h1>
 	<a class="btn btn-primary" href="add_tip/" role="button">Add new tip</a>
-    <div class="grid" >
+    <ul class="grid" >
       {% for tip in tips %}
-      <div class="item">
-        <div class="category">{{tip.category}}</div>
-        <h6 class="author">author: {{ tip.author }}</h6>
-        <label class="date">date: {{ tip.date }}</label>
-        <a class ="edit" href="edit_tip/{{ tip.id }}">Edit</a>
-      </div>
+      <li class="item">
+        {{ tip.text}}<br/>
+        <div class="category">{{tip.category}}</div><br/>
+        <h6 class="author">author: {{ tip.author }}</h6><br/>
+        <label class="date">date: {{ tip.date }}</label><br/>
+        <a class ="edit" href="edit_tip/{{ tip.id }}">Edit</a><br/>
+      </li>
       {% endfor %}
-    </div>
+    </ul>
   </body>
   <script>
     var grid = document.querySelector(“.grid”);

@@ -26,4 +26,4 @@ class Tip(models.Model):
         return tip
 
     def __str__(self):
-        return self.category
+        return self.text[:50]
