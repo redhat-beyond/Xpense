@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from urllib3 import HTTPResponse
+# from urllib3 import HTTPResponse
 from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, LOGIN_PAGE_ROUTE
 
 from house.forms import HouseIdForm
