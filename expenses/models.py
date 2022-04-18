@@ -29,7 +29,7 @@ class Expenses(models.Model):
         return f'Category:{self.category},Amount:{self.amount}'
 
     @staticmethod
-    def create_expense(house_name, amount, date, category):
-        expense = Expenses(house_name=house_name, amount=amount, date=date, category=category)
+    def create_expense(house_name, amount, date, category, description):
+        expense = Expenses(house_name=house_name, amount=amount, date=date, category=category, description=description)
         expense.save()
         return expense

@@ -1,7 +1,9 @@
-from house.constants import HOME_PAGE_ROUTE, HOUSE_PAGE_ROUTE, GLOBAL_PAGE_ROUTE
+from django.http import HttpResponseRedirect
+from house.constants import HOME_PAGE_ROUTE, HOUSE_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, ADD_EXPENSE_ROUST
 from expenses.models import Expenses
 from django.shortcuts import render, get_object_or_404
 from .models import House
+from .forms import ExpenseForm
 
 
 def home_page(request):
@@ -25,6 +27,19 @@ def house_view(request, house_id):
     context = {'house': house,
                'house_expenses': expenses_list}
     return render(request, HOUSE_PAGE_ROUTE, context)
+
+
+def add_expense(request, house_id):
+    if request.method == "POST":
+        form = ExpenseForm(request.POST)
+        if form.is_valid():
+            house = House.objects.get(house_id=house_id)
+            Expenses.create_expense(house_name=house, amount=form.data['amount'], date=form.data['date'],
+                                    category=form.data['category'], description=form.data['description'])
+            return HttpResponseRedirect(f'/../{house_id}')
+    else:
+        form = ExpenseForm()
+    return render(request, ADD_EXPENSE_ROUST, {'form': form})
 
 
 def add_house(request):

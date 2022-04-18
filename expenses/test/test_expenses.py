@@ -1,5 +1,6 @@
 import pytest
 from django.utils import timezone
+
 from expenses.models import Expenses
 from house.models import House, Country, City
 
@@ -15,6 +16,7 @@ HOUSE_PARENT_PROFESSION_1 = "Teacher"
 HOUSE_PARENT_PROFESSION_2 = "Student"
 HOUSE_INCOME = 10_000
 HOUSE_CHILDREN = 1
+DESCRIPTION = 'DESCRIPTION'
 
 
 @pytest.fixture
@@ -48,7 +50,8 @@ def generate_expense(generate_house):
         house_name=generate_house,
         amount=AMOUNT,
         date=DATE,
-        category=CATEGORY
+        category=CATEGORY,
+        description=DESCRIPTION
     )
 
 

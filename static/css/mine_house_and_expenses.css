@@ -69,6 +69,33 @@
   right: 0;
 }
 
+.btn-group button {
+  background-color: #04AA6D; /* Green background */
+  border: 1px solid green; /* Green border */
+  color: white; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  width: 50%; /* Set a width if needed */
+  display: block; /* Make the buttons appear below each other */
+}
+
+.btn-group button:not(:last-child) {
+  border-bottom: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #3e8e41;
+}
+
+.btn-container{
+  width: 100px;
+  height: 50px;
+  margin-top: 370px;
+  margin-left: 1400px;
+  background-color: #3e8e41;
+}
+
 @media screen and (max-height: 450px) {
   .sidebar {
     padding-top: 15px;
