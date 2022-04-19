@@ -646,3 +646,8 @@ blockquote {
 .pagination {
     margin: 0px;
 }
+
+a.nav-link{
+    display: flex;
+    color:  rgba(255,255,255,.55);
+}

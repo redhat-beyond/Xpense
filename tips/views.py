@@ -18,6 +18,12 @@ def add_tip(request):
     else:
         form = TipForm()
     return render(request, ADD_TIP_PAGE_ROUTE, {'form': form})
+    return render(request, 'tips/add_tip.html', {'form': form})
+
+
+def categories_filter(request, cats):
+    category_filtered_tips = Tip.objects.filter(category=cats)
+    return render(request, 'tips/categories.html', {'cats': cats, 'category_filtered_tips': category_filtered_tips})
 
 
 def edit_tip(request, tip_id):
