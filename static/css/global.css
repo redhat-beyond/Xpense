@@ -63,3 +63,18 @@
     padding-top: 15px;
   }
 }
+
+.chart_card {
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin: 5px;
+}
+
+.chart_box {
+  position: relative;
+  height: 50vh;
+  width: 40vw;
+  margin-right: 30px;
+}

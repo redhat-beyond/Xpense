@@ -1,0 +1,96 @@
+<script>
+    $(document).ready(function () {
+        function randomColor() {
+            const num = Math.round(0xffffff * Math.random());
+            const r = num >> 16;
+            const g = num >> 8 & 255;
+            const b = num & 255;
+            return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+        }
+
+        const ctx = document.getElementById("right_chart").getContext("2d");
+        const randomColors = [
+            {%for amount in amounts%} randomColor(),{%endfor%}];
+
+        new Chart(ctx,
+            {
+                type: "pie",
+                data: {
+                    labels: [{%for category in categories%}
+                        '{{category}}',
+                    {%endfor%}],
+                        datasets: [
+                        {
+                            label: "Avg Amount",
+                            data: [{%for amount in amounts%}
+                                '{{amount}}',
+                            {%endfor%}],
+                            backgroundColor: randomColors,
+                            borderColor: randomColors,
+                            borderWidth: 1,
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                    title: {
+                        display: true,
+                        text: 'Average expense amount per category',
+                    }
+                },
+            });
+
+        const ctx1 = document.getElementById("left_chart").getContext("2d");
+        new Chart(ctx1,
+            {
+                type: "bar",
+                data: {
+                    labels: [{%for category in categories%}
+                        '{{category}}',
+                    {%endfor%}],
+                    datasets: [
+                        {
+                            label: "Avg Amount",
+                            data: [{%for amount in amounts%}
+                                '{{amount}}',
+                            {%endfor%}],
+                            backgroundColor: randomColors,
+                            borderColor: randomColors,
+                            borderWidth: 1,
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                    title: {
+                        display: true,
+                        text: 'Average expense amount per category',
+                    }
+                },
+            });
+    });
+</script>
+<body>
+<div>
+    <div class="chart_card">
+        <div class="chart_box">
+            <canvas id="right_chart"></canvas>
+        </div>
+        <div class="chart_box">
+            <canvas id="left_chart"></canvas>
+        </div>
+    </div>
+</div>
+</body>
