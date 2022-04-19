@@ -1,7 +1,20 @@
-
 from django import forms
-
 from house.models import House, Job
+
+
+class HouseCreationForm(forms.ModelForm):
+    class Meta:
+
+        model = House
+        fields = ('name',
+                  'public',
+                  'country',
+                  'city',  # need to check if city is in the country
+                  'parent_profession_1',
+                  'parent_profession_2',
+                  'income',
+                  'children'
+                  )
 
 
 class HouseForm(forms.ModelForm):

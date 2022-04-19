@@ -1,9 +1,11 @@
-from expenses.models import Expenses
-from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE
-from .forms import HouseForm
+from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE, HOUSE_CREATE_ROUTE
+from .forms import HouseForm, HouseCreationForm
 from .helpers import _filter_houses_by_form
 from .models import House, City
+from expenses.models import Expenses
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.forms import ValidationError
 
 
 def home_page(request):
@@ -38,8 +40,28 @@ def house_view(request, house_id):
     raise NotImplementedError
 
 
-def add_house(request):
-    raise NotImplementedError
+def house_create(request):
+    errorMsg = ""
+
+    if request.method == 'POST':
+        try:
+            House_form = HouseCreationForm(request.POST)
+
+            if House_form.is_valid():
+                new_house = House_form.save()
+                new_house_id = new_house.house_id
+                return HttpResponseRedirect(f'/../{new_house_id}')
+            else:
+                errorMsg = "Invalid form data"
+                return render(request, HOUSE_CREATE_ROUTE, {'form': House_form, 'msg': errorMsg})
+        # In case an exception is thrown
+        except ValidationError as ex:
+            errorMsg = ex.message()
+            House_form = HouseCreationForm()
+    else:
+        House_form = HouseCreationForm()
+
+    return render(request, HOUSE_CREATE_ROUTE, {'form': House_form, 'msg': errorMsg})
 
 
 def load_cities(request):
