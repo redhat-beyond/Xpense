@@ -8,8 +8,9 @@ AMOUNT = '100'
 DATE = timezone.now()
 CATEGORY = 'Clothing'
 
-HOUSE_NAME_1 = "House 1"
-HOUSE_NAME_2 = "House 2"
+HOUSE_NAME = "House 1"
+HOUSE_NAME_1 = "House one"
+HOUSE_NAME_2 = "House two"
 HOUSE_PUBLIC = True
 COUNTRY = "Colorado"
 CITY = "South Park"
@@ -32,7 +33,8 @@ def generate_city(generate_country):
 @pytest.fixture
 def generate_house(generate_country, generate_city):
     house = House.create_house(
-        name=HOUSE_NAME_1,
+        # house_id=HOUSE_ID,
+        name=HOUSE_NAME,
         public=HOUSE_PUBLIC,
         country=generate_country,
         city=generate_city,

@@ -1,8 +1,13 @@
 import pytest
-
+from house.models import House, City, Country, Job
+from django.template.loader import get_template
+from django.template import TemplateDoesNotExist
+from house.constants import MINE_EXPENSES_TITLE_ROUTE, MINE_HOUSE_TABLE_ROUTE, MINE_HOUSE_TABLE_TITLE_ROUTE
+from house.constants import MINE_MINE_PAGE_ROUTE, MINE_SIDEBAR_ROUTE
+from house.views import house_view
 from factories.house import HouseFactory
 from house.helpers import _filter_houses_by_form
-from house.models import House, City, Country, Job
+from django.test.client import RequestFactory
 
 HOUSE_NAME = "House 1"
 HOUSE_PUBLIC = True
@@ -39,18 +44,29 @@ def generate_house(generate_country, generate_city):
     return house
 
 
+@pytest.fixture
+def request_factory():
+    return RequestFactory()
+
+
+@pytest.fixture
+def generate_get_request(request_factory):
+    get_request = request_factory.get('<str:house_id>/')
+    return get_request
+
+
 @pytest.mark.django_db
 class TestHouseModel:
     def test_create_house(self, generate_house):
         assert (
-                generate_house.name == HOUSE_NAME
-                and generate_house.public == HOUSE_PUBLIC
-                and generate_house.country.name == COUNTRY
-                and generate_house.city.name == CITY
-                and generate_house.parent_profession_1 == HOUSE_PARENT_PROFESSION_1
-                and generate_house.parent_profession_2 == HOUSE_PARENT_PROFESSION_2
-                and generate_house.income == HOUSE_INCOME
-                and generate_house.children == HOUSE_CHILDREN
+            generate_house.name == HOUSE_NAME
+            and generate_house.public == HOUSE_PUBLIC
+            and generate_house.country.name == COUNTRY
+            and generate_house.city.name == CITY
+            and generate_house.parent_profession_1 == HOUSE_PARENT_PROFESSION_1
+            and generate_house.parent_profession_2 == HOUSE_PARENT_PROFESSION_2
+            and generate_house.income == HOUSE_INCOME
+            and generate_house.children == HOUSE_CHILDREN
         )
 
     def test_save_house(self, generate_house):
@@ -117,3 +133,45 @@ def form_data_filter_tests():
         'lowest_income': 5000,
         'children': 1,
     }
+
+
+@pytest.mark.django_db
+class TestMyHouseViews:
+    def test_house_view_function_200(self, db, generate_get_request):
+        HouseFactory().save()
+        house = House.objects.all()[0]
+        try:
+            render = house_view(generate_get_request, house.house_id)
+            assert render.status_code == 200, "Status code is not 200"
+        except Exception:
+            assert False, "Error in house_view function"
+
+    def test_mine_page_expenses_table_views_templates(self):
+        try:
+            get_template(MINE_EXPENSES_TITLE_ROUTE)
+        except TemplateDoesNotExist:
+            assert False, f"Template {MINE_EXPENSES_TITLE_ROUTE} does not exist"
+
+    def test_mine_page_house_table_views_templates(self):
+        try:
+            get_template(MINE_HOUSE_TABLE_ROUTE)
+        except TemplateDoesNotExist:
+            assert False, f"Template {MINE_HOUSE_TABLE_ROUTE} does not exist"
+
+    def test_mine_page_house_table_title_views_templates(self):
+        try:
+            get_template(MINE_HOUSE_TABLE_TITLE_ROUTE)
+        except TemplateDoesNotExist:
+            assert False, f"Template {MINE_HOUSE_TABLE_TITLE_ROUTE} does not exist"
+
+    def test_mine_page_mine_page_views_templates(self):
+        try:
+            get_template(MINE_MINE_PAGE_ROUTE)
+        except TemplateDoesNotExist:
+            assert False, f"Template {MINE_MINE_PAGE_ROUTE} does not exist"
+
+    def test_mine_sidebar_views_templates(self):
+        try:
+            get_template(MINE_SIDEBAR_ROUTE)
+        except TemplateDoesNotExist:
+            assert False, f"Template {MINE_SIDEBAR_ROUTE} does not exist"
