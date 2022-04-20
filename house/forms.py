@@ -1,6 +1,4 @@
-
 from django import forms
-
 from house.models import House, Job
 
 
@@ -21,3 +19,7 @@ class HouseForm(forms.ModelForm):
         self.fields['country'].required = False
         self.fields['city'].required = False
         self.fields['children'].required = False
+
+
+class HouseIDForm(forms.Form):
+    house_id = forms.UUIDField(label='Enter Your House ID')

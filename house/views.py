@@ -1,9 +1,11 @@
-from expenses.models import Expenses
-from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE
-from .forms import HouseForm
+from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE, LOGIN_PAGE_ROUTE
+from .forms import HouseForm, HouseIDForm
 from .helpers import _filter_houses_by_form
 from .models import House, City
+from expenses.models import Expenses
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.core.exceptions import ValidationError
 
 
 def home_page(request):
@@ -31,7 +33,26 @@ def global_page(request):
 
 
 def house_login(request):
-    raise NotImplementedError
+    errorMsg = ""
+
+    if request.method == 'POST':
+        try:
+            form = HouseIDForm(request.POST)
+            house_id = form.data["house_id"]
+
+            if House.objects.filter(house_id=house_id).count() == 1:
+                return HttpResponseRedirect(f'/../{house_id}')
+            else:
+                errorMsg = "There is no House with the provided ID"
+                form = HouseIDForm()
+        # In case an exception not a valid UUID is thrown
+        except ValidationError:
+            errorMsg = "There is no House with the provided ID : " + house_id
+            form = HouseIDForm()
+    else:
+        form = HouseIDForm()
+
+    return render(request, LOGIN_PAGE_ROUTE, {'form': form, 'msg': errorMsg})
 
 
 def house_view(request, house_id):
