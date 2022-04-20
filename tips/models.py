@@ -26,4 +26,5 @@ class Tip(models.Model):
         return tip
 
     def __str__(self):
-        return self.text[:50]
+        preview_tip = self.text[:10] + '...'
+        return preview_tip
