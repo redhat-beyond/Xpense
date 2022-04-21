@@ -2,8 +2,7 @@ import pytest
 from house.constants import MINE_ADD_EXPENSE_ROUTE, MINE_EXPENSES_TITLE_ROUTE, \
     MINE_HOUSE_TABLE_ROUTE, MINE_HOUSE_TABLE_TITLE_ROUTE, MINE_MINE_PAGE_ROUTE, MINE_SIDEBAR_ROUTE
 from factories.house import HouseFactory
-from house.views import add_expense, house_view
-from house.models import House
+from house.views import add_expense
 from house.forms import ExpenseForm
 from expenses.models import Expenses
 from django.test.client import RequestFactory

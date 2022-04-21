@@ -1,3 +1,4 @@
+from .forms import ExpenseForm, HouseForm
 from house.constants import MINE_ADD_EXPENSE_ROUTE
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
