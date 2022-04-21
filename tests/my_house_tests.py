@@ -62,6 +62,27 @@ def generate_bad_amount_expense_form():
 
 
 @pytest.mark.django_db
+class TestMyHouseViews:
+    def test_get_house_view_function(self, client, new_user):
+        client.force_login(new_user)
+        HouseFactory(user=new_user).save()
+        response = client.get('/house/')
+        assert response.status_code == 200
+
+    def test_mine_page_expenses_table_views_templates(self):
+        get_template(MINE_EXPENSES_TABLE_ROUTE)
+
+    def test_mine_page_house_table_views_templates(self):
+        get_template(MINE_HOUSE_TABLE_ROUTE)
+
+    def test_mine_page_mine_page_views_templates(self):
+        get_template(MINE_MINE_PAGE_ROUTE)
+
+    def test_mine_sidebar_views_templates(self):
+        get_template(MINE_SIDEBAR_ROUTE)
+
+
+@pytest.mark.django_db
 class TestExpenseForm:
     def test_expense_form(self, generate_expense_form):
         form = generate_expense_form
