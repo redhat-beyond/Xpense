@@ -1,13 +1,11 @@
-from .forms import ExpenseForm, HouseForm, HouseCreationForm
 from house.constants import MINE_ADD_EXPENSE_ROUTE
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ValidationError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from expenses.models import Expenses
 from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE, \
  MINE_MINE_PAGE_ROUTE, HOUSE_CREATE_ROUTE
-from .forms import HouseForm, HouseCreationForm
+from .forms import HouseForm, HouseCreationForm, ExpenseForm
 from .models import House, City
 from .helpers import _filter_houses_by_form
 
@@ -53,22 +51,23 @@ def add_house(request):
 
 
 def add_expense(request):
-    if request.method == "POST":
-        form = ExpenseForm(request.POST)
-        if form.is_valid():
+    errorMsg = ""
+    if request.method == 'POST':
+        expense_form = ExpenseForm(request.POST)
+        if expense_form.is_valid():
             user = request.user
             house = user.house
             Expenses.create_expense(
                 house_name=house,
-                amount=form.data['amount'],
-                date=form.data['date'],
-                category=form.data['category'],
-                description=form.data['description'],
+                amount=expense_form.data['amount'],
+                date=expense_form.data['date'],
+                category=expense_form.data['category'],
+                description=expense_form.data['description'],
             )
             return HttpResponseRedirect('/../house')
     else:
-        form = ExpenseForm()
-    return render(request, MINE_ADD_EXPENSE_ROUTE, {'form': form})
+        expense_form = ExpenseForm()
+    return render(request, MINE_ADD_EXPENSE_ROUTE, {'form': expense_form, 'msg': errorMsg})
 
 
 def load_cities(request):

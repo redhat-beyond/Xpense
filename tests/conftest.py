@@ -33,7 +33,7 @@ def generate_house(db):
 @pytest.fixture
 def generate_expense(db, generate_house):
     return Expenses.create_expense(
-        house_name=generate_house, amount=EXPENSE_AMOUNT, date=EXPENSE_DATE, category=EXPENSE_CATEGORY
+        house_name=generate_house, amount=EXPENSE_AMOUNT, date=EXPENSE_DATE, category=EXPENSE_CATEGORY, description=""
     )
 
 

@@ -13,8 +13,11 @@ HOUSE_DESCRIPTION = "description"
 EXPENSE_AMOUNT = 100
 EXPENSE_DATE = timezone.now()
 EXPENSE_CATEGORY = Expenses.Category.CLOTHING
+EXPENSE_DESCRIPTION = "description"
 
 BAD_FORM_DATA = {'house_id': '1234'}
+EXPENSE_BAD_AMOUNT = -100
+EXPENSE_BAD_DESCRIPTION = ''
 
 USERNAME = "testuser"
 FIRSTNAME = "Test"

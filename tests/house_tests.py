@@ -8,6 +8,7 @@ from django.template.loader import get_template
 from django.template import TemplateDoesNotExist
 from house.constants import MINE_EXPENSES_TITLE_ROUTE, MINE_HOUSE_TABLE_ROUTE, MINE_HOUSE_TABLE_TITLE_ROUTE
 from house.constants import MINE_MINE_PAGE_ROUTE, MINE_SIDEBAR_ROUTE
+from house.views import house_view
 
 
 @pytest.mark.django_db

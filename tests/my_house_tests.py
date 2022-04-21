@@ -6,31 +6,18 @@ from house.views import add_expense
 from house.forms import ExpenseForm
 from expenses.models import Expenses
 from django.test.client import RequestFactory
-from django.utils import timezone
 from django.template.loader import get_template
 from django.template import TemplateDoesNotExist
+from tests.const import EXPENSE_AMOUNT, EXPENSE_DATE, EXPENSE_CATEGORY, EXPENSE_DESCRIPTION, EXPENSE_BAD_AMOUNT, \
+    EXPENSE_BAD_DESCRIPTION
 
-HOUSE_NAME = "House 1"
-HOUSE_PUBLIC = True
-COUNTRY = "Colorado"
-CITY = "South Park"
-HOUSE_PARENT_PROFESSION_1 = "Teacher"
-HOUSE_PARENT_PROFESSION_2 = "Student"
-HOUSE_INCOME = 10_000
-HOUSE_CHILDREN = 1
 
-AMOUNT = 100
-DATE = timezone.now()
-CATEGORY = 'Clothing'
-DESCRIPTION = 'DESCRIPTION'
-
-BAD_AMOUNT = -100
-BAD_DESCRIPTION = ''
-
-EXPENSE_FORM_DATA = {'date': DATE, 'amount': AMOUNT, 'category': CATEGORY, 'description': DESCRIPTION}
-EXPENSE_BAD_FORM_DATA_AMOUNT = {'date': DATE, 'amount': BAD_AMOUNT, 'category': CATEGORY, 'description': DESCRIPTION}
-EXPENSE_BAD_FORM_DATA_DESCRIPTION = {'date': DATE, 'amount': AMOUNT, 'category': CATEGORY,
-                                     'description': BAD_DESCRIPTION}
+EXPENSE_FORM_DATA = {'date': EXPENSE_DATE, 'amount': EXPENSE_AMOUNT, 'category': EXPENSE_CATEGORY,
+                     'description': EXPENSE_DESCRIPTION}
+EXPENSE_BAD_FORM_DATA_DESCRIPTION = {'date': EXPENSE_DATE, 'amount': EXPENSE_AMOUNT, 'category': EXPENSE_CATEGORY,
+                                     'description': EXPENSE_BAD_DESCRIPTION}
+EXPENSE_BAD_FORM_DATA_AMOUNT = {'date': EXPENSE_DATE, 'amount': EXPENSE_BAD_AMOUNT, 'category': EXPENSE_CATEGORY,
+                                'description': EXPENSE_DESCRIPTION}
 
 
 @pytest.fixture
@@ -67,10 +54,11 @@ def generate_bad_expense_form_amount(request_factory):
 
 @pytest.mark.django_db
 class TestMyHouseViews:
-    def test_house_view_function_200(self, client):
+    def test_get_house_view_function(self, client, new_user):
+        client.force_login(new_user)
+        HouseFactory(user=new_user).save()
         response = client.get('/house/')
         assert response.status_code == 200
-        assert 'House' in str(response.content)
 
     def test_mine_page_expenses_table_views_templates(self):
         try:
@@ -117,20 +105,22 @@ class TestExpenseForm:
         form = generate_bad_expense_form_description
         assert not form.is_valid()
 
-    def test_add_expenses_to_my_house(self, request_factory):
-        house = HouseFactory()
-        house.save()
-        post_request = request_factory.post('/house/add_expense/', EXPENSE_FORM_DATA)
-        add_expense(post_request)
+    def test_add_expenses_to_my_house(self, client, new_user):
+        client.force_login(new_user)
+        HouseFactory(user=new_user).save()
+        response = client.post('/house/add_expense/', EXPENSE_FORM_DATA)
         assert len(Expenses.objects.all()) == 1
+        assert response.status_code == 302
+        assert response.url == '/../house'
 
 
 @pytest.mark.django_db
 class TestMyHouseAddExpenseViews:
-    def test_get_add_expense_view(self, client):
+    def test_get_add_expense_view(self, client, new_user):
+        client.force_login(new_user)
+        HouseFactory(user=new_user).save()
         response = client.get('/house/add_expense/')
         assert response.status_code == 200
-        assert 'Expense' in str(response.content)
 
     def test_mine_page_add_expense_views_templates(self):
         try:
