@@ -1,3 +1,5 @@
+import pytest
+
 from factories.user import UserFactory
 from house.models import House, City, Country, Job
 from factories.house import HouseFactory

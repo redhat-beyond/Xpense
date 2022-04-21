@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('description', models.TextField(default='', max_length=250)),
                 ('category', models.CharField(choices=[('Rent', 'Rent'), ('Mortgage', 'Mortgage'), ('Bills', 'Bills'), ('Transportation', 'Transportation'), ('Clothing', 'Clothing'), ('Healthcare', 'Healthcare'), ('Food', 'Food'), ('Insurance', 'Insurance'), ('Kids', 'Kids'), ('Culture', 'Culture'), ('Vacations', 'Vacations'), ('Other', 'Other')], default='Other', max_length=32)),
-                ('amount', models.IntegerField(blank=True, null=True, validators=[django.core.validators.MinValueValidator(0)])),
+                ('amount', models.IntegerField(validators=[django.core.validators.MinValueValidator(0)])),
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
                 ('house_name', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='house.house')),
             ],
