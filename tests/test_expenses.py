@@ -3,7 +3,9 @@ from expenses.models import Expenses
 from factories.house import HouseFactory
 from factories.user import UserFactory
 from house.models import House
-from tests.const import DATE
+# from tests.const import DATE
+from django.utils import timezone
+
 
 
 @pytest.mark.django_db()
@@ -21,11 +23,11 @@ class TestExpensesModel:
 def _helper_create_houses():
     house_1 = HouseFactory(user=UserFactory())
     house_2 = HouseFactory(user=UserFactory())
-    Expenses(house_name=house_1, amount=100, date=DATE, category=Expenses.Category.FOOD).save()
-    Expenses(house_name=house_1, amount=200, date=DATE, category=Expenses.Category.FOOD).save()
-    Expenses(house_name=house_2, amount=300, date=DATE, category=Expenses.Category.FOOD).save()
-    Expenses(house_name=house_2, amount=300, date=DATE, category=Expenses.Category.KIDS).save()
-    Expenses(house_name=house_2, amount=400, date=DATE, category=Expenses.Category.KIDS).save()
+    Expenses(house_name=house_1, amount=100, date=timezone.now(), category=Expenses.Category.FOOD).save()
+    Expenses(house_name=house_1, amount=200, date=timezone.now(), category=Expenses.Category.FOOD).save()
+    Expenses(house_name=house_2, amount=300, date=timezone.now(), category=Expenses.Category.FOOD).save()
+    Expenses(house_name=house_2, amount=300, date=timezone.now(), category=Expenses.Category.KIDS).save()
+    Expenses(house_name=house_2, amount=400, date=timezone.now(), category=Expenses.Category.KIDS).save()
 
 
 @pytest.mark.django_db()
