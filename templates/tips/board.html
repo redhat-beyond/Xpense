@@ -1,0 +1,29 @@
+{% extends "base.html" %} {%load static%} {%block content%}
+
+<title>Tips</title>
+<link rel="stylesheet" type="text/css" href="{% static '/css/tips_board.css' %}" />
+<body>
+  <h1>Tips</h1>
+  <a class="btn btn-primary" href="add_tip/" role="button">Add new tip</a>
+  <div class="grid" >
+    {% for tip in tips %}
+    <div class="item">
+      <div class="category">{{tip.category}}</div>
+      <h6 class="author">author: {{ tip.author }}</h6>
+	  <h6 class="text">{{ tip.text }}</h6>
+      <label class="date">publish date: {{ tip.date }}</label>
+      <a class ="edit" href="edit_tip/{{ tip.id }}">Edit</a>
+	  <a class ="delete" href="delete_tip/{{ tip.id }}">Delete</a>
+    </div>
+    {% endfor %}
+  </div>
+</body>
+
+<script>
+    var grid = document.querySelector(“.grid”);
+    var pckry = new Packery(grid, {
+      itemSelector: “.item”,
+      gutter: 10,
+    });
+  </script>
+{% endblock %}
