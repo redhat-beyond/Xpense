@@ -4,11 +4,6 @@ from factories.user import UserFactory
 from house.models import House, City, Country, Job
 from factories.house import HouseFactory
 from house.helpers import _filter_houses_by_form
-from django.template.loader import get_template
-from django.template import TemplateDoesNotExist
-from house.constants import MINE_EXPENSES_TITLE_ROUTE, MINE_HOUSE_TABLE_ROUTE, MINE_HOUSE_TABLE_TITLE_ROUTE
-from house.constants import MINE_MINE_PAGE_ROUTE, MINE_SIDEBAR_ROUTE
-from house.views import house_view
 
 
 @pytest.mark.django_db
