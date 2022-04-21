@@ -1,8 +1,10 @@
 {% extends "base.html" %} {%load static%} {%block content%}
-<link rel="stylesheet" type="text/css" href="{% static 'css/mine_house_and_expenses.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/mine.css' %}" />
 <body>
-  <div class="house_table-container">{% include 'house_view/house_table.html' %}</div>
   <div class="sidebar-container">{% include 'house_view/sidebar.html' %}</div>
-
+  <div>
+      <a class="btn btn-primary" href="{% url 'house:add_expense'%}" role="button">Add Expense</a>
+      <div class="expenses_table-container">{% include 'house_view/expenses_table.html' %}</div>
+  </div>
 </body>
 {% endblock %}

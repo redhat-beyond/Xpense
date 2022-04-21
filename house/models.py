@@ -40,7 +40,7 @@ class Job(models.TextChoices):
     DOCTOR = 'Doctor'
     VET = 'Vet'
     NURSE = 'Nurse'
-    TECHNICHIAN = 'Technichian'
+    TECHNICIAN = 'Technician'
     CLEANER = 'Cleaner'
     OTHER = 'Other'
     UNEMPLOYED = 'Unemployed'
@@ -62,7 +62,7 @@ class House(models.Model):
     parent_profession_1 = models.CharField(max_length=50, choices=Job.choices, default=Job.OTHER)
     parent_profession_2 = models.CharField(max_length=50, choices=Job.choices, default=Job.OTHER)
     income = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0)])
-    children = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0)])
+    children = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0)], default=0)
     description = models.TextField(max_length=250, default='')
 
     @staticmethod

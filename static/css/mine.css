@@ -1,0 +1,47 @@
+.sidebar-container {
+  height: 100%;
+  z-index: -1;
+  width: 17%;
+  text-align: justify;
+  position: fixed;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  bottom: 0;
+  left:0;
+  background-color: inherit;
+}
+
+.expenses_table-container {
+    height: 30%;
+    width: 83%;
+    overflow-x: hidden;
+    text-align: justify;
+    position: fixed;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    bottom: 0;
+    right: 0;
+    overflow-y:scroll;
+}
+
+.btn-primary{
+  background-color: #37474f;
+  color: #fff;
+  cursor: pointer; /* Pointer/hand icon */
+  width: 12%; /* Set a width if needed */
+  position: fixed;
+  left: 87%;
+  display: block; /* Make the buttons appear below each other */
+  bottom: 32%;
+  margin: 0;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidebar {
+    padding-top: 15px;
+  }
+}

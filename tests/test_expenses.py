@@ -16,6 +16,16 @@ def test_delete_expense(generate_expense):
     assert generate_expense not in Expenses.objects.all()
 
 
+def test_create_expense(generate_expense):
+    expense = Expenses.create_expense(
+        generate_expense.house_name,
+        generate_expense.amount,
+        generate_expense.date,
+        generate_expense.category,
+        generate_expense.description)
+    assert expense in Expenses.objects.all()
+
+
 def _helper_create_houses():
     house_1 = HouseFactory(user=UserFactory())
     house_2 = HouseFactory(user=UserFactory())

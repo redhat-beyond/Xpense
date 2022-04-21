@@ -1,5 +1,5 @@
 from django import forms
-
+from expenses.models import Expenses
 from house.models import House, Job
 
 
@@ -32,3 +32,9 @@ class HouseCreationForm(forms.ModelForm):
     income = forms.IntegerField(label='Monthly Income', required=True, min_value=0)
     children = forms.IntegerField(label='Number of Children', required=True, min_value=0, max_value=20)
     public = forms.BooleanField(label='public', required=False, initial=True)
+
+
+class ExpenseForm(forms.ModelForm):
+    class Meta:
+        model = Expenses
+        fields = ('date', 'amount', 'category', 'description')

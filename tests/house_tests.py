@@ -2,10 +2,6 @@ from factories.user import UserFactory
 from house.models import House, City, Country, Job
 from factories.house import HouseFactory
 from house.helpers import _filter_houses_by_form
-from django.template.loader import get_template
-from django.template import TemplateDoesNotExist
-from house.constants import MINE_EXPENSES_TITLE_ROUTE, MINE_HOUSE_TABLE_ROUTE, MINE_HOUSE_TABLE_TITLE_ROUTE
-from house.constants import MINE_MINE_PAGE_ROUTE, MINE_SIDEBAR_ROUTE
 
 
 def test_save_house(generate_house):
@@ -141,45 +137,3 @@ def form_data_filter_tests():
         'lowest_income': 5000,
         'children': 1,
     }
-
-
-def test_house_view_function_200(db, client, new_user):
-    client.force_login(new_user)
-    HouseFactory(user=new_user).save()
-    response = client.get('/house/')
-    assert response.status_code == 200
-
-
-def test_mine_page_expenses_table_views_templates():
-    try:
-        get_template(MINE_EXPENSES_TITLE_ROUTE)
-    except TemplateDoesNotExist:
-        assert False, f'Template {MINE_EXPENSES_TITLE_ROUTE} does not exist'
-
-
-def test_mine_page_house_table_views_templates():
-    try:
-        get_template(MINE_HOUSE_TABLE_ROUTE)
-    except TemplateDoesNotExist:
-        assert False, f'Template {MINE_HOUSE_TABLE_ROUTE} does not exist'
-
-
-def test_mine_page_house_table_title_views_templates():
-    try:
-        get_template(MINE_HOUSE_TABLE_TITLE_ROUTE)
-    except TemplateDoesNotExist:
-        assert False, f'Template {MINE_HOUSE_TABLE_TITLE_ROUTE} does not exist'
-
-
-def test_mine_page_mine_page_views_templates():
-    try:
-        get_template(MINE_MINE_PAGE_ROUTE)
-    except TemplateDoesNotExist:
-        assert False, f'Template {MINE_MINE_PAGE_ROUTE} does not exist'
-
-
-def test_mine_sidebar_views_templates():
-    try:
-        get_template(MINE_SIDEBAR_ROUTE)
-    except TemplateDoesNotExist:
-        assert False, f'Template {MINE_SIDEBAR_ROUTE} does not exist'

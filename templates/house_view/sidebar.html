@@ -1,8 +1,8 @@
 {% block sidebar %}{%load static%}
+<link rel="stylesheet" type="text/css" href="{% static 'css/sidebar.css' %}" />
 <body>
   <div>
-    <div class="sidebar">{%include 'house_view/house_table_title.html'%}</div>
-    <div class="expenses_table-container">{% include 'house_view/expenses_table.html' %}</div>
+    <div class="sidebar">{%include 'house_view/house_table.html'%}</div>
   </div>
 </body>
 
