@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Tip
 from .forms import TipForm
-from .constants import TIPS_PAGE_ROUTE, ADD_TIP_PAGE_ROUTE, EDIT_TIP_PAGE_ROUTE
+from .constants import TIPS_PAGE_ROUTE, ADD_TIP_PAGE_ROUTE, EDIT_TIP_PAGE_ROUTE, READ_MORE_PAGE_ROUTE,\
+    CATEGORIES_PAGE_ROUT
 
 
 def board(request):
@@ -22,12 +23,12 @@ def add_tip(request):
 
 def categories_filter(request, cats):
     category_filtered_tips = Tip.objects.filter(category=cats)
-    return render(request, 'tips/categories.html', {'cats': cats, 'category_filtered_tips': category_filtered_tips})
+    return render(request, CATEGORIES_PAGE_ROUT, {'cats': cats, 'category_filtered_tips': category_filtered_tips})
 
 
 def read_more_view(request, tip_id):
     tip = get_object_or_404(Tip, pk=tip_id)
-    return render(request, 'tips/read_more.html', {'tip': tip})
+    return render(request, READ_MORE_PAGE_ROUTE, {'tip': tip})
 
 
 def edit_tip(request, tip_id):
