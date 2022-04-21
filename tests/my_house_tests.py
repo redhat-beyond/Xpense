@@ -41,41 +41,37 @@ def request_factory():
 
 @pytest.fixture
 def generate_get_request(request_factory):
-    get_request = request_factory.get('<str:house_id>/add_expense/')
+    get_request = request_factory.get('/house/add_expense/')
     return get_request
 
 
 @pytest.fixture
 def generate_expense_form(request_factory):
-    post_request = request_factory.post('<str:house_id>/add_expense/', EXPENSE_FORM_DATA)
+    post_request = request_factory.post('/house/add_expense/', EXPENSE_FORM_DATA)
     form = ExpenseForm(post_request.POST)
     return form
 
 
 @pytest.fixture
 def generate_bad_expense_form_description(request_factory):
-    post_request = request_factory.post('<str:house_id>/add_expense/', EXPENSE_BAD_FORM_DATA_DESCRIPTION)
+    post_request = request_factory.post('/house/add_expense/', EXPENSE_BAD_FORM_DATA_DESCRIPTION)
     form = ExpenseForm(post_request.POST)
     return form
 
 
 @pytest.fixture
 def generate_bad_expense_form_amount(request_factory):
-    post_request = request_factory.post('<str:house_id>/add_expense/', EXPENSE_BAD_FORM_DATA_AMOUNT)
+    post_request = request_factory.post('/house/add_expense/', EXPENSE_BAD_FORM_DATA_AMOUNT)
     form = ExpenseForm(post_request.POST)
     return form
 
 
 @pytest.mark.django_db
 class TestMyHouseViews:
-    def test_house_view_function_200(self, generate_get_request):
-        HouseFactory().save()
-        house = House.objects.all()[0]
-        try:
-            render = house_view(generate_get_request, house.house_id)
-            assert render.status_code == 200, "Status code is not 200"
-        except Exception:
-            assert False, "Error in house_view function"
+    def test_house_view_function_200(self, client):
+        response = client.get('/house/')
+        assert response.status_code == 200
+        assert 'House' in str(response.content)
 
     def test_mine_page_expenses_table_views_templates(self):
         try:
@@ -125,18 +121,17 @@ class TestExpenseForm:
     def test_add_expenses_to_my_house(self, request_factory):
         house = HouseFactory()
         house.save()
-        post_request = request_factory.post(f'{house.house_id}/add_expense/', EXPENSE_FORM_DATA)
-        add_expense(post_request, house.house_id)
+        post_request = request_factory.post('/house/add_expense/', EXPENSE_FORM_DATA)
+        add_expense(post_request)
         assert len(Expenses.objects.all()) == 1
 
 
 @pytest.mark.django_db
 class TestMyHouseAddExpenseViews:
     def test_get_add_expense_view(self, client):
-        HouseFactory().save()
-        house = House.objects.all()[0]
-        response = client.get(f'/{house.house_id}/add_expense/')
+        response = client.get('/house/add_expense/')
         assert response.status_code == 200
+        assert 'Expense' in str(response.content)
 
     def test_mine_page_add_expense_views_templates(self):
         try:
