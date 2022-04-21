@@ -1,13 +1,13 @@
+from house.constants import MINE_ADD_EXPENSE_ROUTE
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-
 from expenses.models import Expenses
-from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE
-from house.constants import MINE_MINE_PAGE_ROUTE, HOUSE_CREATE_ROUTE
-from .forms import HouseForm, HouseCreationForm
-from .helpers import _filter_houses_by_form
+from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE, \
+ MINE_MINE_PAGE_ROUTE, HOUSE_CREATE_ROUTE
+from .forms import HouseForm, HouseCreationForm, ExpenseForm
 from .models import House, City
+from .helpers import _filter_houses_by_form
 
 
 def home_page(request):
@@ -42,9 +42,32 @@ def house_view(request):
 
     house = user.house
     expenses_list = Expenses.objects.filter(house_name=house)
-    context = {'house': house,
-               'house_expenses': expenses_list}
+    context = {'house': house, 'house_expenses': expenses_list}
     return render(request, MINE_MINE_PAGE_ROUTE, context)
+
+
+def add_house(request):
+    raise NotImplementedError
+
+
+def add_expense(request):
+    errorMsg = ""
+    if request.method == 'POST':
+        expense_form = ExpenseForm(request.POST)
+        if expense_form.is_valid():
+            user = request.user
+            house = user.house
+            Expenses.create_expense(
+                house_name=house,
+                amount=expense_form.data['amount'],
+                date=expense_form.data['date'],
+                category=expense_form.data['category'],
+                description=expense_form.data['description'],
+            )
+            return HttpResponseRedirect('/../house')
+    else:
+        expense_form = ExpenseForm()
+    return render(request, MINE_ADD_EXPENSE_ROUTE, {'form': expense_form, 'msg': errorMsg})
 
 
 def load_cities(request):
