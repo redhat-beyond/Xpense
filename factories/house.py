@@ -1,8 +1,6 @@
 import random
-
 import factory
 from factory.django import DjangoModelFactory
-
 from house.models import House, Country, City, Job
 
 

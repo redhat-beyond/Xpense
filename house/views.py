@@ -1,11 +1,12 @@
+from house.constants import MINE_MINE_PAGE_ROUTE
+from django.shortcuts import render, get_object_or_404
 from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE, LOGIN_PAGE_ROUTE
 from .forms import HouseForm, HouseIDForm
 from .helpers import _filter_houses_by_form
-from .models import House, City
 from expenses.models import Expenses
-from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.exceptions import ValidationError
+from .models import House, City
 
 
 def home_page(request):
@@ -56,7 +57,11 @@ def house_login(request):
 
 
 def house_view(request, house_id):
-    raise NotImplementedError
+    house = get_object_or_404(House, pk=house_id)
+    expenses_list = Expenses.objects.filter(house_name=house)
+    context = {'house': house,
+               'house_expenses': expenses_list}
+    return render(request, MINE_MINE_PAGE_ROUTE, context)
 
 
 def add_house(request):
