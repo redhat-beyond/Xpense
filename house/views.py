@@ -59,6 +59,7 @@ def house_login(request):
     return render(request, LOGIN_PAGE_ROUTE, {'form': form, 'msg': errorMsg})
 
 
+@login_required
 def house_view(request, house_id):
     house = get_object_or_404(House, pk=house_id)
     expenses_list = Expenses.objects.filter(house_name=house)

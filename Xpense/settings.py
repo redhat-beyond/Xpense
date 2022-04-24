@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'house.apps.HouseConfig',
     'django_extensions',
     'tips.apps.TipsConfig',
+    'accounts.apps.AccountsConfig',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
