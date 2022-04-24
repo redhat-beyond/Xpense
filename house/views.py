@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+
 from house.constants import MINE_MINE_PAGE_ROUTE
 from django.shortcuts import render, get_object_or_404
 from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE, LOGIN_PAGE_ROUTE
@@ -33,6 +35,7 @@ def global_page(request):
     return render(request, GLOBAL_PAGE_ROUTE, context)
 
 
+@login_required
 def house_login(request):
     errorMsg = ""
 
