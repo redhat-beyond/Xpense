@@ -23,3 +23,17 @@ class HouseForm(forms.ModelForm):
 
 class HouseIDForm(forms.Form):
     house_id = forms.UUIDField(label='Enter Your House ID')
+
+
+class HouseCreationForm(forms.ModelForm):
+    class Meta:
+        model = House
+        fields = (
+            'public',
+            'country',
+            'city',
+            'parent_profession_1',
+            'parent_profession_2',
+            'income',
+            'children'
+        )

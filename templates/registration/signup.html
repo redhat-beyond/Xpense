@@ -1,9 +1,14 @@
 {% extends "base.html" %} {% load static %}
 {% block content %}
-    <h2>Sign up</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign Up</button>
-    </form>
+    <div class="card" style="color: rgb(0, 0, 0); background: rgba(252, 252, 252, 0.3); width: 500px;">
+        <h2>Sign up</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-group">
+                <button class="btn btn-primary mt-3" type="submit">Sign Up</button>
+                <a class="btn btn-primary mt-3" href="{% url 'login' %}">Log in</a>
+            </div>
+        </form>
+    </div>
 {% endblock %}

@@ -1,6 +1,7 @@
 import uuid
-from django.db import models
+from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
+from django.db import models
 
 
 class Country(models.Model):
@@ -46,8 +47,7 @@ class Job(models.TextChoices):
 
 
 class House(models.Model):
-    house_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=50)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     public = models.BooleanField(default=False)
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
@@ -58,9 +58,9 @@ class House(models.Model):
     description = models.TextField(max_length=250, default='')
 
     @staticmethod
-    def create_house(name, public, country, city, parent_profession_1, parent_profession_2, income, children):
+    def create_house(user, public, country, city, parent_profession_1, parent_profession_2, income, children):
         house = House(
-            name=name,
+            user=user,
             public=public,
             country=country,
             city=city,
@@ -73,4 +73,4 @@ class House(models.Model):
         return house
 
     def __str__(self):
-        return self.name
+        return self.user.username
