@@ -89,15 +89,15 @@ class TestTipViews:
 
     def test_tips_views_templates(self):
         try:
-            get_template('tips/board.html')
+            get_template(TIPS_PAGE_ROUTE)
         except TemplateDoesNotExist:
             assert False, f"Template {TIPS_PAGE_ROUTE} does not exist"
         try:
-            get_template('tips/add_tip.html')
+            get_template(ADD_TIP_PAGE_ROUTE)
         except TemplateDoesNotExist:
             assert False, f"Template {ADD_TIP_PAGE_ROUTE} does not exist"
         try:
-            get_template('tips/edit_tip.html')
+            get_template(EDIT_TIP_PAGE_ROUTE)
         except TemplateDoesNotExist:
             assert False, f"Template {EDIT_TIP_PAGE_ROUTE} does not exist"
 
