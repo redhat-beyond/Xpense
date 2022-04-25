@@ -1,8 +1,9 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models import Avg, IntegerField, QuerySet
 from django.utils import timezone
+
 from house.models import House
-from django.core.validators import MinValueValidator
 
 
 class Expenses(models.Model):
@@ -37,6 +38,7 @@ class Expenses(models.Model):
 
     @staticmethod
     def average_expenses_of_houses_by_categories(houses) -> QuerySet:
-        average_expenses_of_houses_by_categories = Expenses.objects.filter(house_name__user__in=houses.values_list('user')).order_by().values(
-                'category').annotate(average=Avg("amount", output_field=IntegerField()))
+        average_expenses_of_houses_by_categories = Expenses.objects.filter(
+            house_name__user__in=houses.values_list('user')).order_by().values(
+            'category').annotate(average=Avg("amount", output_field=IntegerField()))
         return average_expenses_of_houses_by_categories

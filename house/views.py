@@ -4,9 +4,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from expenses.models import Expenses
-from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE, LOGIN_PAGE_ROUTE
+from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE
 from house.constants import MINE_MINE_PAGE_ROUTE, HOUSE_CREATE_ROUTE
-from .forms import HouseForm, HouseIDForm, HouseCreationForm
+from .forms import HouseForm, HouseCreationForm
 from .helpers import _filter_houses_by_form
 from .models import House, City
 
@@ -39,7 +39,7 @@ def global_page(request):
 def house_view(request):
     user = request.user
     if hasattr(user, 'house') is False:
-        return HttpResponseRedirect(f'/../house_create')
+        return HttpResponseRedirect('/../house_create')
 
     house = user.house
     expenses_list = Expenses.objects.filter(house_name=house)
@@ -71,7 +71,7 @@ def house_create(request):
                                    city=cleaned_data['city'],
                                    children=cleaned_data['children'],
                                    income=cleaned_data['income'])
-                return HttpResponseRedirect(f'/../house')
+                return HttpResponseRedirect('/../house')
             else:
                 errorMsg = "Invalid form data"
                 return render(request, HOUSE_CREATE_ROUTE, {'form': house_form, 'msg': errorMsg})
