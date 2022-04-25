@@ -8,7 +8,7 @@ class HouseFactory(DjangoModelFactory):
     class Meta:
         model = House
 
-    name = factory.Faker('name')
+    user = factory.LazyAttribute(lambda x: x.user)
     public = factory.Faker('boolean')
     country = factory.Iterator(Country.objects.all())
     city = factory.LazyAttribute(lambda x: random.choice(City.objects.filter(country=x.country)))

@@ -1,4 +1,5 @@
 import pytest
+from django.contrib.auth.models import UserManager, User
 from django.utils import timezone
 from expenses.models import Expenses
 from factories.house import HouseFactory
@@ -31,10 +32,14 @@ def generate_city(generate_country):
 
 
 @pytest.fixture
-def generate_house(generate_country, generate_city):
+def user():
+    return User.objects.create_user(username='test', password='test')
+
+
+@pytest.fixture
+def generate_house(generate_country, generate_city, user):
     house = House.create_house(
-        # house_id=HOUSE_ID,
-        name=HOUSE_NAME,
+        user=user,
         public=HOUSE_PUBLIC,
         country=generate_country,
         city=generate_city,
