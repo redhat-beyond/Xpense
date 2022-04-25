@@ -7,7 +7,9 @@ from django.test.client import RequestFactory
 from tips.forms import TipForm
 from tips.views import board, delete_tip
 from django.template.loader import get_template
-from tips.constants import TIPS_PAGE_ROUTE, ADD_TIP_PAGE_ROUTE, EDIT_TIP_PAGE_ROUTE
+from tips.constants import TIPS_PAGE_ROUTE, ADD_TIP_PAGE_ROUTE, EDIT_TIP_PAGE_ROUTE, READ_MORE_PAGE_ROUTE, \
+    CATEGORIES_PAGE_ROUT
+
 AUTHOR = 'RICK'
 OTHER_AUTHOR = 'RICKEN'
 CATEGORY = 'Clothing'
@@ -100,6 +102,14 @@ class TestTipViews:
             get_template(EDIT_TIP_PAGE_ROUTE)
         except TemplateDoesNotExist:
             assert False, f"Template {EDIT_TIP_PAGE_ROUTE} does not exist"
+        try:
+            get_template(READ_MORE_PAGE_ROUTE)
+        except TemplateDoesNotExist:
+            assert False, f"Template {READ_MORE_PAGE_ROUTE} does not exist"
+        try:
+            get_template(CATEGORIES_PAGE_ROUT)
+        except TemplateDoesNotExist:
+            assert False, f"Template {CATEGORIES_PAGE_ROUT} does not exist"
 
     def test_delete_tip_page(self, generate_get_request, generate_tip):
         generate_tip.save()
