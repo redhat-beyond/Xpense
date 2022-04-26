@@ -42,7 +42,7 @@ def house_login(request):
             house_id = form.data["house_id"]
 
             if House.objects.filter(house_id=house_id).count() == 1:
-                return HttpResponseRedirect(f'/../{house_id}')
+                return HttpResponseRedirect(f'/../house/{house_id}')
             else:
                 errorMsg = "There is no House with the provided ID"
                 form = HouseIDForm()

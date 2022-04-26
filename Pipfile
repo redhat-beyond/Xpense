@@ -8,6 +8,7 @@ django = "==4.0.3"
 tzdata = "==2022.1"
 django-extensions = "==3.1.5"
 factory_boy = "==3.2.1"
+django-crispy-forms = "==1.14.0"
 
 [dev-packages]
 flake8 = "==4.0.1"

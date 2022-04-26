@@ -57,6 +57,11 @@
               <a class="nav-link" href="/tips">Tips</a>
             </li>
           </ul>
+            {% if user.is_authenticated %}
+                <a id class="nav-link mr-sm-2" href="/accounts/logout">Logout</a>
+            {% else %}
+                <a id class="nav-link mr-sm-2" href="/accounts/login">Login</a>
+            {% endif %}
         </div>
       </nav>
       <div>{%block content%}{%endblock%}</div>
