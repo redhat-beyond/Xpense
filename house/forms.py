@@ -1,5 +1,6 @@
 from django import forms
 from house.models import House, Job
+from expenses.models import Expenses
 
 
 class HouseForm(forms.ModelForm):
@@ -23,3 +24,9 @@ class HouseForm(forms.ModelForm):
 
 class HouseIDForm(forms.Form):
     house_id = forms.UUIDField(label='Enter Your House ID')
+
+
+class ExpenseForm(forms.ModelForm):
+    class Meta:
+        model = Expenses
+        fields = ('date', 'amount', 'category', 'description')

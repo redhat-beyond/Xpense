@@ -1,7 +1,8 @@
 from house.constants import MINE_MINE_PAGE_ROUTE
 from django.shortcuts import render, get_object_or_404
-from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE, LOGIN_PAGE_ROUTE
-from .forms import HouseForm, HouseIDForm
+from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE, LOGIN_PAGE_ROUTE, \
+    MINE_EDIT_EXPENSE_ROUTE
+from .forms import HouseForm, HouseIDForm, ExpenseForm
 from .helpers import _filter_houses_by_form
 from expenses.models import Expenses
 from django.http import HttpResponseRedirect
@@ -73,3 +74,24 @@ def load_cities(request):
     cities = City.objects.filter(country_id=country_id).order_by('name')
     context = {'cities': cities}
     return render(request, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE, context)
+
+
+def edit_expense(request, id, house_id):
+    expense = get_object_or_404(Expenses, pk=id)
+    form = ExpenseForm(request.POST or None, instance=expense)
+    context = {'form': form}
+    if request.method == "POST":
+        if form.is_valid():
+            expense = form.save(commit=False)
+            expense.save()
+            context = {'form': form}
+            return HttpResponseRedirect(f'/../{house_id}')
+    else:
+        form = ExpenseForm()
+    return render(request, MINE_EDIT_EXPENSE_ROUTE, context)
+
+
+def delete_expense(request, house_id, id):
+    expense = get_object_or_404(Expenses, pk=id)
+    expense.delete()
+    return HttpResponseRedirect(f'/../{house_id}')

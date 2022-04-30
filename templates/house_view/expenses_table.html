@@ -3,10 +3,11 @@
   <thead>
     <tr>
       <th>#</th>
-      <th>Date</th>
-      <th>Category</th>
-      <th>Amount</th>
-      <th>Description</th>
+      <th>DATE</th>
+      <th>CATEGORY</th>
+      <th>AMOUNT</th>
+      <th>DESCRIPTION</th>
+      <th>OPTIONS</th>
     </tr>
   </thead>
   <tbody>
@@ -17,6 +18,12 @@
       <td>{{ expense.category }}</td>
       <td>{{ expense.amount }}</td>
       <td>{{ expense.description }}</td>
+      <td>
+          <div class="btn-group">
+            <a class="btn btn-primary" href="edit_expense/{{ expense.id }}" role="button">Edit Expense</a>
+            <a class="btn btn-primary" href="delete_expense/{{ expense.id }}" role="button">Delete Expense</a>
+          </div>
+      </td>
     </tr>
     {% empty %}
     <tr>
