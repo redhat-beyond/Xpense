@@ -1,11 +1,11 @@
 from house.constants import MINE_ADD_EXPENSE_ROUTE
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from expenses.models import Expenses
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseRedirect
-from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE
-from house.constants import MINE_MINE_PAGE_ROUTE, HOUSE_CREATE_ROUTE
+from django.shortcuts import render
+from expenses.models import Expenses
+from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE, \
+ MINE_MINE_PAGE_ROUTE, HOUSE_CREATE_ROUTE
 from .forms import HouseForm, HouseCreationForm
 from .models import House, City
 from .helpers import _filter_houses_by_form
