@@ -1,4 +1,4 @@
-from .forms import ExpenseForm, HouseForm
+from .forms import ExpenseForm, HouseForm, HouseCreationForm
 from house.constants import MINE_ADD_EXPENSE_ROUTE
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
@@ -44,8 +44,7 @@ def house_view(request):
 
     house = user.house
     expenses_list = Expenses.objects.filter(house_name=house)
-    context = {'house': house,
-               'house_expenses': expenses_list}
+    context = {'house': house, 'house_expenses': expenses_list}
     return render(request, MINE_MINE_PAGE_ROUTE, context)
 
 
@@ -59,8 +58,13 @@ def add_expense(request):
         if form.is_valid():
             user = request.user
             house = user.house
-            Expenses.create_expense(house_name=house, amount=form.data['amount'], date=form.data['date'],
-                                    category=form.data['category'], description=form.data['description'])
+            Expenses.create_expense(
+                house_name=house,
+                amount=form.data['amount'],
+                date=form.data['date'],
+                category=form.data['category'],
+                description=form.data['description'],
+            )
             return HttpResponseRedirect('/../house')
     else:
         form = ExpenseForm()
