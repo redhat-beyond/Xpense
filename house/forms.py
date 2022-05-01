@@ -1,5 +1,6 @@
 from django import forms
-from house.models import House, Job
+
+from house.models import House, Job, Country, City
 
 
 class HouseForm(forms.ModelForm):
@@ -21,5 +22,12 @@ class HouseForm(forms.ModelForm):
         self.fields['children'].required = False
 
 
-class HouseIDForm(forms.Form):
-    house_id = forms.UUIDField(label='Enter Your House ID')
+class HouseCreationForm(forms.Form):
+    name = forms.CharField(label='House Name', required=True)
+    parent_profession_1 = forms.ChoiceField(choices=Job.choices, required=True)
+    parent_profession_2 = forms.ChoiceField(choices=Job.choices, required=True)
+    country = forms.ModelChoiceField(queryset=Country.objects.all(), required=True)
+    city = forms.ModelChoiceField(queryset=City.objects.all(), required=True)
+    income = forms.IntegerField(label='Monthly Income', required=True, min_value=0)
+    children = forms.IntegerField(label='Number of Children', required=True, min_value=0, max_value=20)
+    public = forms.BooleanField(label='public', required=False, initial=True)

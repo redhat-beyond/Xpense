@@ -1,11 +1,12 @@
-from house.constants import MINE_MINE_PAGE_ROUTE
-from django.shortcuts import render, get_object_or_404
-from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE, LOGIN_PAGE_ROUTE
-from .forms import HouseForm, HouseIDForm
-from .helpers import _filter_houses_by_form
-from expenses.models import Expenses
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.core.exceptions import ValidationError
+from django.shortcuts import render
+
+from expenses.models import Expenses
+from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE
+from house.constants import MINE_MINE_PAGE_ROUTE, HOUSE_CREATE_ROUTE
+from .forms import HouseForm, HouseCreationForm
+from .helpers import _filter_houses_by_form
 from .models import House, City
 
 
@@ -33,38 +34,16 @@ def global_page(request):
     return render(request, GLOBAL_PAGE_ROUTE, context)
 
 
-def house_login(request):
-    errorMsg = ""
+@login_required
+def house_view(request):
+    user = request.user
+    if hasattr(user, 'house') is False:
+        return HttpResponseRedirect('/../house_create')
 
-    if request.method == 'POST':
-        try:
-            form = HouseIDForm(request.POST)
-            house_id = form.data["house_id"]
-
-            if House.objects.filter(house_id=house_id).count() == 1:
-                return HttpResponseRedirect(f'/../house/{house_id}')
-            else:
-                errorMsg = "There is no House with the provided ID"
-                form = HouseIDForm()
-        # In case an exception not a valid UUID is thrown
-        except ValidationError:
-            errorMsg = "There is no House with the provided ID : " + house_id
-            form = HouseIDForm()
-    else:
-        form = HouseIDForm()
-
-    return render(request, LOGIN_PAGE_ROUTE, {'form': form, 'msg': errorMsg})
-
-
-def house_view(request, house_id):
-    house = get_object_or_404(House, pk=house_id)
+    house = user.house
     expenses_list = Expenses.objects.filter(house_name=house)
     context = {'house': house, 'house_expenses': expenses_list}
     return render(request, MINE_MINE_PAGE_ROUTE, context)
-
-
-def add_house(request):
-    raise NotImplementedError
 
 
 def load_cities(request):
@@ -72,3 +51,26 @@ def load_cities(request):
     cities = City.objects.filter(country_id=country_id).order_by('name')
     context = {'cities': cities}
     return render(request, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE, context)
+
+
+@login_required
+def house_create(request):
+    errorMsg = ""
+    if request.method == 'POST':
+        house_form = HouseCreationForm(request.POST)
+        if house_form.is_valid():
+            cleaned_data = house_form.cleaned_data
+            House.create_house(user=request.user,
+                               name=cleaned_data['name'],
+                               public=cleaned_data['public'],
+                               parent_profession_1=cleaned_data['parent_profession_1'],
+                               parent_profession_2=cleaned_data['parent_profession_2'],
+                               country=cleaned_data['country'],
+                               city=cleaned_data['city'],
+                               children=cleaned_data['children'],
+                               income=cleaned_data['income'])
+            return HttpResponseRedirect('/../house')
+    else:
+        house_form = HouseCreationForm()
+
+    return render(request, HOUSE_CREATE_ROUTE, {'form': house_form, 'msg': errorMsg})

@@ -1,23 +1,8 @@
 import pytest
-from django.contrib.auth.models import User
 from django.template.loader import get_template
 
 from house.constants import USER_LOGIN_PAGE_ROUTE, USER_SIGNUP_ROUTE
-
-USERNAME = "testuser"
-FIRSTNAME = "Test"
-LASTNAME = "User"
-PASSWORD = "TestPassword123!@#"
-PASSWORD_NOT_MATCH = "NOT_MATCH"
-EMAIL = "testuser@gmail.com"
-
-
-@pytest.fixture
-def new_user():
-    user = User(username=USERNAME, first_name=FIRSTNAME, last_name=LASTNAME, password=PASSWORD, email=EMAIL)
-    user.set_password(PASSWORD)
-    user.save()
-    return user
+from tests.const import USERNAME, PASSWORD, PASSWORD_NOT_MATCH
 
 
 @pytest.mark.django_db()
