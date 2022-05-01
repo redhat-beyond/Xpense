@@ -1,6 +1,6 @@
 .table-container {
   height: 30%;
-  width: 85%;
+  width: 83%;
   overflow-x: hidden;
   text-align: justify;
   position: fixed;
@@ -9,18 +9,21 @@
   justify-content: center;
   bottom: 0;
   right: 0;
+  background-color: inherit;
 }
 
 .sidebar-container {
   height: 100%;
   z-index: -1;
-  width: 15%;
+  width: 17%;
   text-align: justify;
   position: fixed;
   margin: auto;
   display: flex;
   justify-content: center;
   bottom: 0;
+  left:0;
+  background-color: inherit;
 }
 
 .chart-container {
@@ -29,52 +32,15 @@
   width: 85%;
   position: fixed;
   right: 0;
+  background-color: inherit;
 }
 
-.table th {
-  text-align: center;
-  color: black;
-}
 
-.sidebar {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
 
-.form_title {
-  font-size: 20px;
-  font-weight: bold;
-  color: #fff;
-  text-align: center;
-  margin-top: 10px;
-}
-
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidebar {
     padding-top: 15px;
   }
 }
 
-.chart_card {
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  position: relative;
-  margin: 5px;
-}
-
-.chart_box {
-  position: relative;
-  height: 50vh;
-  width: 40vw;
-  margin-right: 30px;
-}
