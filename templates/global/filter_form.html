@@ -1,24 +1,54 @@
 {% block filter_form %} {% load static %}
 <h3 class="text-center text-black pt-1">House Filter</h3>
 
-<form
-  method="post"
-  id="HouseFilter"
-  data-cities-url="{% url 'house:ajax_load_cities' %}"
-  novalidate
->
-  <table>
-    <tr>
-      {{ form.as_table }}
-    </tr>
-    <tr>
-      <td>
-        <button type="submit" class="btn btn-info btn-md">Submit</button>
-      </td>
-    </tr>
-  </table>
-  {% csrf_token %}
-</form>
+    <form
+            method="post"
+            id="HouseFilter"
+            data-cities-url="{% url 'house:ajax_load_cities' %}"
+            novalidate
+    >
+        <table>
+            {% for field in form %}
+                <tr>
+                    {%if not "income" in field.label_tag%}
+                        <th>{{ field.label_tag }}</th>
+                        <td colspan="2">{{ field }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            <tr style = "border:none">
+                <th colspan="3"><label>Income:</label></th>
+            </tr>
+
+            <tr style = "border:none">
+                <td style="width:45%;padding:0px;">
+                    {{form.lowest_income.errors}}
+                    {{form.lowest_income}}
+                </td>
+                <td style="width:0;padding:0px;">
+                    <label style="font-size:1.9rem"> - </label>
+                </td> 
+                 <td style="width:45%;padding:0px;">
+                     {{form.highest_income.errors}}
+                     {{form.highest_income}}
+                </td>  
+            </tr>
+            <tr style = "border:none;">
+                <th style="padding:0px">
+                    <label>min</label>
+                </th>
+                 <th colspan="2" style="padding:0px"> 
+                    <label>max</label>
+                </th> 
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit">Submit</button>
+                </td>
+            </tr>
+        </table>
+        {% csrf_token %}
+    </form>
 
 <script>
   const url = $("#HouseFilter").attr("data-cities-url");

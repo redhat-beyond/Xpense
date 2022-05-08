@@ -2,9 +2,20 @@ th label {
   color: black;
   font-size: 0.9em;
 }
+
+th {
+  text-align: center;
+}
+
+td {
+  text-align: center;
+}
+
 td input {
   height: 20%;
+  text-align: center;
 }
+
 td select {
   display: block;
   height: 20%;
@@ -17,6 +28,7 @@ button {
   color: black;
   left: 25%;
 }
-button:hover{
+
+button:hover {
   background-color: lightgrey;
 }
