@@ -8,6 +8,7 @@ from tips.forms import TipForm
 from tips.views import board, delete_tip
 from django.template.loader import get_template
 from tips.constants import TIPS_PAGE_ROUTE, ADD_TIP_PAGE_ROUTE, EDIT_TIP_PAGE_ROUTE
+
 AUTHOR = 'RICK'
 OTHER_AUTHOR = 'RICKEN'
 CATEGORY = 'Clothing'
@@ -35,7 +36,10 @@ def request_factory():
 
 @pytest.fixture
 def generate_form(request_factory):
-    post_request = request_factory.post('tips/add_tip', FORM_DATA,)
+    post_request = request_factory.post(
+        'tips/add_tip',
+        FORM_DATA,
+    )
     form = TipForm(post_request.POST)
     return form
 
