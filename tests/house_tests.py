@@ -6,7 +6,6 @@ from django.template.loader import get_template
 from django.template import TemplateDoesNotExist
 from house.constants import MINE_EXPENSES_TITLE_ROUTE, MINE_HOUSE_TABLE_ROUTE, MINE_HOUSE_TABLE_TITLE_ROUTE
 from house.constants import MINE_MINE_PAGE_ROUTE, MINE_SIDEBAR_ROUTE
-from house.views import house_view
 
 
 @pytest.mark.django_db
@@ -128,11 +127,11 @@ def form_data_filter_tests():
 
 @pytest.mark.django_db
 class TestMyHouseViews:
-    def test_house_view_function_200(self, db, generate_get_request):
+    def test_house_view_function_200(self, client):
         HouseFactory().save()
         house = House.objects.all()[0]
         try:
-            render = house_view(generate_get_request, house.house_id)
+            render = client.get('/house/' + str(house.house_id) + '/')
             assert render.status_code == 200, "Status code is not 200"
         except Exception:
             assert False, "Error in house_view function"
