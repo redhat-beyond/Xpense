@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'tips.apps.TipsConfig',
     'accounts.apps.AccountsConfig',
     'crispy_forms',
+    'material',
 ]
 
 MIDDLEWARE = [

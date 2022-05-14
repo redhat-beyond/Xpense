@@ -1,96 +1,124 @@
 <script>
-    $(document).ready(function () {
-        function randomColor() {
-            const num = Math.round(0xffffff * Math.random());
-            const r = num >> 16;
-            const g = num >> 8 & 255;
-            const b = num & 255;
-            return 'rgb(' + r + ', ' + g + ', ' + b + ')';
-        }
+  $(document).ready(function () {
+      function randomColor() {
+          const num = Math.round(0xffffff * Math.random());
+          const r = num >> 16;
+          const g = num >> 8 & 255;
+          const b = num & 255;
+          return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+      }
 
-        const ctx = document.getElementById("right_chart").getContext("2d");
-        const randomColors = [
-            {%for amount in amounts%} randomColor(),{%endfor%}];
+      const ctx = document.getElementById("right_chart").getContext("2d");
+      const randomColors = [
+          {%for amount in amounts%} randomColor(),{%endfor%}];
 
-        new Chart(ctx,
-            {
-                type: "pie",
-                data: {
-                    labels: [{%for category in categories%}
-                        '{{category}}',
-                    {%endfor%}],
-                        datasets: [
-                        {
-                            label: "Avg Amount",
-                            data: [{%for amount in amounts%}
-                                '{{amount}}',
-                            {%endfor%}],
-                            backgroundColor: randomColors,
-                            borderColor: randomColors,
-                            borderWidth: 1,
-                        },
-                    ],
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                        },
-                    },
-                    title: {
-                        display: true,
-                        text: 'Average expense amount per category',
+      new Chart(ctx,
+          {
+              type: "pie",
+              data: {
+                  labels: [{%for category in categories%}
+                      '{{category}}',
+                  {%endfor%}],
+                      datasets: [
+                      {
+                          data: [{%for amount in amounts%}
+                              '{{amount}}',
+                          {%endfor%}],
+                          backgroundColor: randomColors,
+                          borderColor: randomColors,
+                          borderWidth: 1,
+                      },
+                  ],
+              },
+              options: {
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            var dataset = data.datasets[tooltipItem.datasetIndex];
+                            var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                                return parseInt(previousValue) + parseInt(currentValue);
+                            });
+                            console.log(total)
+                            var currentValue = dataset.data[tooltipItem.index];
+                            var percentage = Math.floor(((currentValue/total) * 100)+0.5);
+
+                            return 'Expense Monthly Amount of ' + data.labels[tooltipItem.index] + ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index] + "$ which is " + percentage + "% percentage";
+                       }
                     }
                 },
-            });
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  scales: {
+                      y: {
+                          beginAtZero: true,
+                      },
+                  },
+                  title: {
+                      display: true,
+                      text: 'Average Expense Amount Per Category',
+                      fullSize:true,
+                  }
+              },
+          });
 
-        const ctx1 = document.getElementById("left_chart").getContext("2d");
-        new Chart(ctx1,
-            {
-                type: "bar",
-                data: {
-                    labels: [{%for category in categories%}
-                        '{{category}}',
-                    {%endfor%}],
-                    datasets: [
-                        {
-                            label: "Avg Amount",
-                            data: [{%for amount in amounts%}
-                                '{{amount}}',
-                            {%endfor%}],
-                            backgroundColor: randomColors,
-                            borderColor: randomColors,
-                            borderWidth: 1,
-                        },
-                    ],
+      const ctx1 = document.getElementById("left_chart").getContext("2d");
+      new Chart(ctx1,
+          {
+              type: "bar",
+              data: {
+                  labels: [{%for category in categories%}
+                      '{{category}}',
+                  {%endfor%}],
+                  datasets: [
+                      {
+                          label: 'Expense Amount',
+                          data: [{%for amount in amounts%}
+                              '{{amount}}',
+                          {%endfor%}],
+                          backgroundColor: randomColors,
+                          borderColor: randomColors,
+                          borderWidth: 1,
+                      },
+                  ],
+              },
+              options: {
+                legend: {
+                    display: false
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                        },
-                    },
-                    title: {
-                        display: true,
-                        text: 'Average expense amount per category',
+                tooltips: {
+                    callbacks: {
+                       label: function(tooltipItem) {
+                              return ` Expense Monthly Amount ${tooltipItem.yLabel}$` ;
+                       }
                     }
                 },
-            });
-    });
+
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  scales: {
+                      y: {
+                          beginAtZero: true,
+                      },
+                  },
+
+                  title: {
+                      display: true,
+                      fullSize:true,
+                      text: 'Average Expense Amount Per Category',
+                  }
+              },
+          });
+  });
 </script>
 <body>
-<div>
+  <div>
     <div class="chart_card">
-        <div class="chart_box">
-            <canvas id="right_chart"></canvas>
-        </div>
-        <div class="chart_box">
-            <canvas id="left_chart"></canvas>
-        </div>
+      <div class="chart_box">
+        <canvas id="right_chart"></canvas>
+      </div>
+      <div class="chart_box">
+        <canvas id="left_chart"></canvas>
+      </div>
     </div>
-</div>
+  </div>
 </body>

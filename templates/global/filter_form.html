@@ -1,51 +1,50 @@
 {% block filter_form %} {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}"/>
-    <h2 class="form_title">House Filter</h2>
+<h3 class="text-center text-black pt-1">House Filter</h3>
 
-    <form
-            method="post"
-            id="HouseFilter"
-            data-cities-url="{% url 'house:ajax_load_cities' %}"
-            novalidate
-    >
-        <table>
-            <tr>
-                {{ form.as_table }}
-            </tr>
-            <tr>
-                <td>
-                    <button type="submit">Submit</button>
-                </td>
-            </tr>
-        </table>
-        {% csrf_token %}
-    </form>
+<form
+  method="post"
+  id="HouseFilter"
+  data-cities-url="{% url 'house:ajax_load_cities' %}"
+  novalidate
+>
+  <table>
+    <tr>
+      {{ form.as_table }}
+    </tr>
+    <tr>
+      <td>
+        <button type="submit" class="btn btn-info btn-md">Submit</button>
+      </td>
+    </tr>
+  </table>
+  {% csrf_token %}
+</form>
 
-    <script>
-        const url = $("#HouseFilter").attr("data-cities-url");
+<script>
+  const url = $("#HouseFilter").attr("data-cities-url");
 
-        $(document).ready(function () {
-            change_cities($("#id_country").val());
-        });
+  $(document).ready(function () {
+    change_cities($("#id_country").val());
+  });
 
-        $("#id_country").change(function () {
-            change_cities($(this).val());
-        });
+  $("#id_country").change(function () {
+    change_cities($(this).val());
+  });
 
-        function change_cities(countryId) {
-            if (countryId === "") return;
-            $.ajax({
-                url: url,
-                data: {
-                    country: countryId,
-                },
-                success: function (data) {
-                    var id = $("#id_city").val();
-                    $("#id_city").html(data);
-                    document.querySelector("#id_city").value = id;
-                },
-            });
-        }
-    </script>
+  function change_cities(countryId) {
+    if (countryId === "") return;
+    $.ajax({
+      url: url,
+      data: {
+        country: countryId,
+      },
+      success: function (data) {
+        var id = $("#id_city").val();
+        $("#id_city").html(data);
+        document.querySelector("#id_city").value = id;
+      },
+    });
+  }
+</script>
 
 {% endblock %}

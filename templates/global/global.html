@@ -1,5 +1,8 @@
-{% extends "base.html" %} {%load static%} {%block content%}
+{% extends "base.html" %} {%load static%} {%block styles%}
 <link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/chart.css' %}" />
+{% endblock styles %} {%block content%}
 <body>
   <div class="sidebar-container">{% include 'global/sidebar.html' %}</div>
   <div class="table-container">{% include 'global/table.html' %}</div>
