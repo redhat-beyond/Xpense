@@ -104,6 +104,15 @@ class TestFilterHouseForm:
         assert House.objects.get(parent_profession_1=Job.TEACHER) in houses
         assert House.objects.get(parent_profession_2=Job.TEACHER) in houses
 
+    def test_no_private_houses_sent(self):
+        pass_filter_house_create()
+        HouseFactory(
+            public=False,
+        ).save()
+        houses = _filter_houses_by_form({}, House.objects.all())
+        assert len(houses) == 1
+        assert House.objects.get(public=True) in houses
+
 
 def pass_filter_house_create():
     HouseFactory(
@@ -112,6 +121,7 @@ def pass_filter_house_create():
         income=5000,
         children=1,
         parent_profession_1=Job.TEACHER,
+        public=True,
     ).save()
 
 
