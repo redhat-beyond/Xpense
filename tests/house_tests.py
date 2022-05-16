@@ -88,14 +88,16 @@ class TestFilterHouseForm:
             city=City.objects.get(name='Tel Aviv'),
             income=5000,
             children=1,
-            parent_profession_2=Job.TEACHER,
+            parent_profession_1=Job.TEACHER,
+            parent_profession_2=Job.OTHER,
         ).save()
         HouseFactory(
             country=Country.objects.get(name='Israel'),
             city=City.objects.get(name='Tel Aviv'),
             income=5000,
             children=1,
-            parent_profession_1=Job.TEACHER,
+            parent_profession_1=Job.OTHER,
+            parent_profession_2=Job.TEACHER,
         ).save()
         houses = _filter_houses_by_form(form_data_filter_tests(), House.objects.all())
         assert len(houses) == 2
