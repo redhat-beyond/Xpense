@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from expenses.models import Expenses
 from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE, \
- MINE_MINE_PAGE_ROUTE, HOUSE_CREATE_ROUTE
+    MINE_MINE_PAGE_ROUTE, HOUSE_CREATE_ROUTE
 from .forms import HouseForm, HouseCreationForm, ExpenseForm
 from .models import House, City
 from .helpers import _filter_houses_by_form
@@ -50,6 +50,7 @@ def add_house(request):
     raise NotImplementedError
 
 
+@login_required
 def add_expense(request):
     errorMsg = ""
     if request.method == 'POST':
