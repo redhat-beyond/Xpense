@@ -114,8 +114,6 @@ class TestFilterHouseForm:
         house2.save()
         houses = _filter_houses_by_form(form_data_filter_tests(), House.objects.all())
         assert len(houses) == 2
-        assert House.objects.get(parent_profession_1=Job.TEACHER) in houses
-        assert House.objects.get(parent_profession_2=Job.TEACHER) in houses
 
 
 def pass_filter_house_create():
