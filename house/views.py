@@ -14,7 +14,7 @@ def home_page(request):
 
 
 def global_page(request):
-    houses = House.objects.all()
+    houses = House.objects.filter(public=True)
     if request.method == 'POST':
         form = HouseForm(request.POST)
         if form.is_valid():
@@ -59,8 +59,7 @@ def house_login(request):
 def house_view(request, house_id):
     house = get_object_or_404(House, pk=house_id)
     expenses_list = Expenses.objects.filter(house_name=house)
-    context = {'house': house,
-               'house_expenses': expenses_list}
+    context = {'house': house, 'house_expenses': expenses_list}
     return render(request, MINE_MINE_PAGE_ROUTE, context)
 
 

@@ -4,6 +4,7 @@ from house.models import House
 
 
 def _filter_houses_by_form(form_data: dict, filtered_houses: QuerySet[House]) -> QuerySet[House]:
+    filtered_houses = filtered_houses.filter(public=True)
     for key, value in form_data.items():
         if value is not None and value != '':
             if 'profession' in key and form_data['parent_profession_1'] != form_data['parent_profession_2']:

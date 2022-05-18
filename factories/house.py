@@ -16,3 +16,4 @@ class HouseFactory(DjangoModelFactory):
     parent_profession_2 = factory.LazyAttribute(lambda x: random.choice([tup[1] for tup in Job.choices]))
     income = factory.Faker('random_number', digits=5)
     children = factory.Faker('random_number', digits=1)
+    public = True
