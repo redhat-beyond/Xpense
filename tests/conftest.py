@@ -1,24 +1,19 @@
 import pytest
-from django.utils import timezone
+from django.contrib.auth.models import User
+
+from factories.user import UserFactory
 from house.models import House, City, Country
 from expenses.models import Expenses
 
-HOUSE_NAME = "House 1"
-HOUSE_PUBLIC = True
-HOUSE_PARENT_PROFESSION_1 = "Teacher"
-HOUSE_PARENT_PROFESSION_2 = "Student"
-HOUSE_INCOME = 10_000
-HOUSE_CHILDREN = 1
-HOUSE_DESCRIPTION = "description"
-
-EXPENSE_AMOUNT = 100
-EXPENSE_DATE = timezone.now()
-EXPENSE_CATEGORY = Expenses.Category.CLOTHING
+from tests.const import HOUSE_NAME, HOUSE_PUBLIC, HOUSE_PARENT_PROFESSION_2, HOUSE_PARENT_PROFESSION_1, HOUSE_INCOME, \
+    HOUSE_CHILDREN, HOUSE_DESCRIPTION, EXPENSE_AMOUNT, EXPENSE_DATE, EXPENSE_CATEGORY, USERNAME, PASSWORD, FIRSTNAME, \
+    LASTNAME, EMAIL
 
 
 @pytest.fixture
 def generate_house(db):
     house = House.create_house(
+        user=UserFactory(),
         name=HOUSE_NAME,
         public=HOUSE_PUBLIC,
         country=Country.objects.get(name="Israel"),
@@ -37,3 +32,11 @@ def generate_expense(db, generate_house):
     return Expenses.create_expense(
         house_name=generate_house, amount=EXPENSE_AMOUNT, date=EXPENSE_DATE, category=EXPENSE_CATEGORY
     )
+
+
+@pytest.fixture
+def new_user():
+    user = User(username=USERNAME, first_name=FIRSTNAME, last_name=LASTNAME, password=PASSWORD, email=EMAIL)
+    user.set_password(PASSWORD)
+    user.save()
+    return user

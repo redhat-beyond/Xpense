@@ -1,4 +1,6 @@
 import pytest
+
+from factories.user import UserFactory
 from house.models import House, City, Country, Job
 from factories.house import HouseFactory
 from house.helpers import _filter_houses_by_form
@@ -25,6 +27,7 @@ class TestFilterHouseForm:
     def test_filter_parent_profession_1(self):
         pass_filter_house_create()
         HouseFactory(
+            user=UserFactory(),
             country=Country.objects.get(name='Israel'),
             city=City.objects.get(name='Tel Aviv'),
             income=5000,
@@ -37,6 +40,7 @@ class TestFilterHouseForm:
     def test_filter_country(self):
         pass_filter_house_create()
         HouseFactory(
+            user=UserFactory(),
             country=Country.objects.get(name='India'),
             city=City.objects.get(name='Tel Aviv'),
             income=5000,
@@ -49,6 +53,7 @@ class TestFilterHouseForm:
     def test_filter_city(self):
         pass_filter_house_create()
         HouseFactory(
+            user=UserFactory(),
             country=Country.objects.get(name='Israel'),
             city=City.objects.get(name='Ramat Gan'),
             income=5000,
@@ -61,6 +66,7 @@ class TestFilterHouseForm:
     def test_filter_highest_income(self):
         pass_filter_house_create()
         HouseFactory(
+            user=UserFactory(),
             country=Country.objects.get(name='Israel'),
             city=City.objects.get(name='Tel Aviv'),
             income=12000,
@@ -73,6 +79,7 @@ class TestFilterHouseForm:
     def test_filter_lowest_income(self):
         pass_filter_house_create()
         HouseFactory(
+            user=UserFactory(),
             country=Country.objects.get(name='Israel'),
             city=City.objects.get(name='Tel Aviv'),
             income=4000,
@@ -83,22 +90,26 @@ class TestFilterHouseForm:
         assert len(houses) == 1
 
     def test_profession_either_parent(self):
-        HouseFactory(
+        house1 = HouseFactory(
+            user=UserFactory(),
             country=Country.objects.get(name='Israel'),
             city=City.objects.get(name='Tel Aviv'),
             income=5000,
             children=1,
             parent_profession_1=Job.TEACHER,
             parent_profession_2=Job.OTHER,
-        ).save()
-        HouseFactory(
+        )
+        house2 = HouseFactory(
+            user=UserFactory(),
             country=Country.objects.get(name='Israel'),
             city=City.objects.get(name='Tel Aviv'),
             income=5000,
             children=1,
             parent_profession_1=Job.OTHER,
             parent_profession_2=Job.TEACHER,
-        ).save()
+        )
+        house1.save()
+        house2.save()
         houses = _filter_houses_by_form(form_data_filter_tests(), House.objects.all())
         assert len(houses) == 2
         assert House.objects.get(parent_profession_1=Job.TEACHER) in houses
@@ -107,6 +118,7 @@ class TestFilterHouseForm:
     def test_no_private_houses_sent(self):
         pass_filter_house_create()
         HouseFactory(
+            user=UserFactory(),
             public=False,
         ).save()
         houses = _filter_houses_by_form({}, House.objects.all())
@@ -116,6 +128,7 @@ class TestFilterHouseForm:
 
 def pass_filter_house_create():
     HouseFactory(
+        user=UserFactory(),
         country=Country.objects.get(name='Israel'),
         city=City.objects.get(name='Tel Aviv'),
         income=5000,
@@ -139,14 +152,11 @@ def form_data_filter_tests():
 
 @pytest.mark.django_db
 class TestMyHouseViews:
-    def test_house_view_function_200(self, client):
-        HouseFactory().save()
-        house = House.objects.all()[0]
-        try:
-            render = client.get('/house/' + str(house.house_id) + '/')
-            assert render.status_code == 200, "Status code is not 200"
-        except Exception:
-            assert False, "Error in house_view function"
+    def test_house_view_function_200(self, client, new_user):
+        client.force_login(new_user)
+        HouseFactory(user=new_user).save()
+        response = client.get('/house/')
+        assert response.status_code == 200
 
     def test_mine_page_expenses_table_views_templates(self):
         try:

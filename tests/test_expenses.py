@@ -1,12 +1,9 @@
 import pytest
-from django.utils import timezone
 from expenses.models import Expenses
 from factories.house import HouseFactory
+from factories.user import UserFactory
 from house.models import House
-
-HOUSE_NAME_1 = "House one"
-HOUSE_NAME_2 = "House two"
-DATE = timezone.now()
+from tests.const import DATE
 
 
 @pytest.mark.django_db()
@@ -22,8 +19,8 @@ class TestExpensesModel:
 
 
 def _helper_create_houses():
-    house_1 = HouseFactory(name=HOUSE_NAME_1)
-    house_2 = HouseFactory(name=HOUSE_NAME_2)
+    house_1 = HouseFactory(user=UserFactory())
+    house_2 = HouseFactory(user=UserFactory())
     Expenses(house_name=house_1, amount=100, date=DATE, category=Expenses.Category.FOOD).save()
     Expenses(house_name=house_1, amount=200, date=DATE, category=Expenses.Category.FOOD).save()
     Expenses(house_name=house_2, amount=300, date=DATE, category=Expenses.Category.FOOD).save()
