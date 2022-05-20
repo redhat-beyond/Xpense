@@ -16,13 +16,14 @@ def home_page(request):
 
 def global_page(request):
     houses = House.objects.filter(public=True)
+    form = HouseForm()
+    if houses.count() == 0:
+        return render(request, GLOBAL_PAGE_ROUTE, {'all_houses': [], 'form': form})
     if request.method == 'POST':
         form = HouseForm(request.POST)
         if form.is_valid():
             cleaned_data = form.cleaned_data
             houses = _filter_houses_by_form(cleaned_data, houses)
-    else:
-        form = HouseForm()
 
     categories_amounts = Expenses.average_expenses_of_houses_by_categories(houses)
     context = {
