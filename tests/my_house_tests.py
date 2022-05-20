@@ -6,6 +6,7 @@ from house.constants import (
     MINE_PAGE_ROUTE,
     MINE_SIDEBAR_ROUTE,
     MINE_EDIT_EXPENSE_ROUTE,
+    MINE_EDIT_HOUSE,
 )
 from factories.expense import ExpenseFactory
 from factories.house import HouseFactory
@@ -76,7 +77,7 @@ class TestMyHouseViews:
         get_template(MINE_HOUSE_TABLE_ROUTE)
 
     def test_mine_page_mine_page_views_templates(self):
-        get_template(MINE_MINE_PAGE_ROUTE)
+        get_template(MINE_PAGE_ROUTE)
 
     def test_mine_sidebar_views_templates(self):
         get_template(MINE_SIDEBAR_ROUTE)
@@ -169,3 +170,15 @@ class TestActionsOnExpensesOfMyHouse:
         assert len(Expenses.objects.all()) == 0
         assert response.status_code == 302
         assert response.url == '/../house'
+
+
+@pytest.mark.django_db
+class TestMyHouseEditHouseViews:
+    def test_get_edit_house_view(self, client, new_user):
+        client.force_login(new_user)
+        HouseFactory(user=new_user).save()
+        response = client.get('/house/edit_house/')
+        assert response.status_code == 200
+
+    def test_mine_page_edit_house_views_templates(self):
+        get_template(MINE_EDIT_HOUSE)

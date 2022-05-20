@@ -45,3 +45,16 @@
     padding-top: 15px;
   }
 }
+
+a.btn.btn-secondary {
+  width: 50%;
+  height: 30px;
+  position: absolute;
+  color: black;
+  left: 25%;
+  background-color: white;
+}
+
+a.btn.btn-secondary:hover {
+  background-color: lightgrey;
+}
