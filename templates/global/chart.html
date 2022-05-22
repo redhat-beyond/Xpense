@@ -1,28 +1,27 @@
 {% load static %}
 
 <script type="text/javascript" src="{% static 'js/random_colors.js' %}" ></script>
+<script src="{%static 'js/pie_chart.js'%}" type="text/javascript"></script>   
+<script src="{%static 'js/bar_chart.js'%}" type="text/javascript"></script>   
 <script>
     $(document).ready(function () {
-        window.randomColors = [{%for amount in amounts%} randomColor(),{%endfor%}];
-        window.pie_chart = "right_chart"
-        window.bar_chart = "left_chart"
+        var randomColors = [{%for amount in amounts%} randomColor(),{%endfor%}];
+        var categories = [{%for category in categories%}'{{category}}',{%endfor%}];
+        var amounts = [{%for amount in amounts%}'{{amount}}',{%endfor%}];
+        create_pie_chart(categories, amounts,"Average Expense Amount Per Category",randomColors, "left_chart");
+        create_bar_chart(categories, amounts,"Average Expense Amount Per Category",randomColors, "right_chart");
     });
 </script>
 
-{{ categories|json_script:"categories" }}
-{{ amounts|json_script:"amounts" }}
-
-<script src="{%static 'js/pie_chart.js'%}" type="text/javascript"></script>   
-<script src="{%static 'js/bar_chart.js'%}" type="text/javascript"></script>   
 
 <body>
   <div>
     <div class="chart_card">
       <div class="chart_box">
-        <canvas id="right_chart"></canvas>
-      </div>
-      <div class="chart_box">
         <canvas id="left_chart"></canvas>
+      </div>
+      <div class="chart_box"> 
+        <canvas id="right_chart"></canvas>
       </div>
     </div>
   </div>

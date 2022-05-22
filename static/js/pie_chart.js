@@ -1,17 +1,16 @@
-$(document).ready(function () {
-    const ctx = document.getElementById(window.pie_chart).getContext("2d");
-    const amounts = JSON.parse(document.getElementById("amounts").textContent);
-    const categories = JSON.parse(document.getElementById("categories").textContent);
+
+function create_pie_chart(lables, data, title, colors, canvas_id) {
+    const ctx = document.getElementById(canvas_id).getContext("2d");
     new Chart(ctx,
         {
             type: "pie",
             data: {
-                labels: categories,
+                labels: lables,
                 datasets: [
                     {
-                        data: amounts,
-                        backgroundColor: window.randomColors,
-                        borderColor: window.randomColors,
+                        data: data,
+                        backgroundColor: colors,
+                        borderColor: colors,
                         borderWidth: 1,
                     },
                 ],
@@ -26,9 +25,9 @@ $(document).ready(function () {
                 },
                 title: {
                     display: true,
-                    text: 'Average Expense Amount Per Category',
+                    text: title,
                     fullSize: true,
                 }
             },
         });
-});
+}
