@@ -18,6 +18,7 @@ td input {
 
 td select {
   height: 20%;
+  display: block !important;
 }
 
 button {

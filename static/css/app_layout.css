@@ -64,7 +64,3 @@ body {
 .fw-bolder {
   font-weight: 500 !important;
 }
-
-select {
-  display: block !important;
-}

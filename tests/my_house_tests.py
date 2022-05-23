@@ -6,11 +6,11 @@ from house.constants import (
     MINE_PAGE_ROUTE,
     MINE_SIDEBAR_ROUTE,
     MINE_EDIT_EXPENSE_ROUTE,
+    MINE_CHARTS_ROUTE,
 )
 from factories.expense import ExpenseFactory
 from factories.house import HouseFactory
 from expenses.models import Expenses
-from django.template.loader import get_template
 from tests.const import (
     EXPENSE_FORM_DATA,
     EXPENSE_BAD_FORM_DATA_DESCRIPTION,
@@ -81,20 +81,27 @@ class TestMyHouseViewsAndTemplates:
     def test_get_house_view_function_and_templates(self, client, house_factory):
         response = client.get('/house/')
         assert response.status_code == 200
-        get_template(MINE_PAGE_ROUTE)
-        get_template(MINE_EXPENSES_TABLE_ROUTE)
-        get_template(MINE_HOUSE_TABLE_ROUTE)
-        get_template(MINE_SIDEBAR_ROUTE)
+
+        template_names = set(template.origin.template_name for template in response.templates)
+        assert MINE_PAGE_ROUTE in template_names
+        assert MINE_EXPENSES_TABLE_ROUTE in template_names
+        assert MINE_HOUSE_TABLE_ROUTE in template_names
+        assert MINE_SIDEBAR_ROUTE in template_names
+        assert MINE_CHARTS_ROUTE in template_names
 
     def test_get_add_expense_view_and_template(self, client, house_factory):
         response = client.get('/house/add_expense/')
         assert response.status_code == 200
-        get_template(MINE_ADD_EXPENSE_ROUTE)
+
+        template_names = set(template.origin.template_name for template in response.templates)
+        assert MINE_ADD_EXPENSE_ROUTE in template_names
 
     def test_get_edit_expense_view_function_and_templates(self, client, house_factory, expense_factory):
         response = client.get('/house/edit_expense/1/')
         assert response.status_code == 200
-        get_template(MINE_EDIT_EXPENSE_ROUTE)
+
+        template_names = set(template.origin.template_name for template in response.templates)
+        assert MINE_EDIT_EXPENSE_ROUTE in template_names
 
     def test_get_delete_expense_view(self, client, house_factory, expense_factory):
         response = client.get('/house/delete_expense/1/')

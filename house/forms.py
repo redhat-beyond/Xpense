@@ -1,6 +1,7 @@
 from django import forms
 from expenses.models import Expenses
 from house.models import House, Job
+from datetime import datetime
 
 
 class HouseForm(forms.ModelForm):
@@ -38,3 +39,21 @@ class ExpenseForm(forms.ModelForm):
     class Meta:
         model = Expenses
         fields = ('date', 'amount', 'category', 'description')
+
+
+def get_current_year():
+    return datetime.now().year
+
+
+def get_list_of_relevant_years():
+    return [(y, y) for y in reversed(range(2020, (get_current_year() + 1)))]
+
+
+class YearFilterForm(forms.Form):
+    list_of_relevant_years = get_list_of_relevant_years()
+    year = forms.ChoiceField(
+        choices=list_of_relevant_years,
+        required=False,
+        initial=get_current_year(),
+        widget=forms.Select(attrs={'onchange': 'form.submit();'}),
+    )
