@@ -3,7 +3,6 @@
 	<p class="edittip"><h1>Edit tip</h1></p>
 	<form method="POST">
 		{% csrf_token %}
-	
 		{% form form=form %}{% endform %}
 		<input type="submit" value="Post">
 	</form>

@@ -18,9 +18,9 @@ from django.urls import path, include, re_path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include("accounts.urls"), name="accounts"),
-    path('accounts/', include("django.contrib.auth.urls")),
+    path('accounts/', include('accounts.urls'), name='accounts'),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('tips/', include('tips.urls')),
-    re_path(r"^chaining/", include("smart_selects.urls")),
+    re_path(r'^chaining/', include('smart_selects.urls')),
     path('', include('house.urls')),
 ]

@@ -52,9 +52,9 @@ class House(models.Model):
     public = models.BooleanField(default=False)
     country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True)
     city = ChainedForeignKey(
-        "house.City",
-        chained_field="country",
-        chained_model_field="country",
+        'house.City',
+        chained_field='country',
+        chained_model_field='country',
         show_all=False,
         auto_choose=True,
         null=True,
@@ -66,8 +66,9 @@ class House(models.Model):
     description = models.TextField(max_length=250, default='')
 
     @staticmethod
-    def create_house(user, name, public, country, city, parent_profession_1, parent_profession_2, income, children,
-                     description=''):
+    def create_house(
+        user, name, public, country, city, parent_profession_1, parent_profession_2, income, children, description=''
+    ):
         house = House(
             user=user,
             name=name,
@@ -78,7 +79,7 @@ class House(models.Model):
             parent_profession_2=parent_profession_2,
             income=income,
             children=children,
-            description=description
+            description=description,
         )
         house.save()
         return house

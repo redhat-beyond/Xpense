@@ -81,15 +81,15 @@ class TestTipViews:
         try:
             get_template(TIPS_PAGE_ROUTE)
         except TemplateDoesNotExist:
-            assert False, f"Template {TIPS_PAGE_ROUTE} does not exist"
+            assert False, f'Template {TIPS_PAGE_ROUTE} does not exist'
         try:
             get_template(ADD_TIP_PAGE_ROUTE)
         except TemplateDoesNotExist:
-            assert False, f"Template {ADD_TIP_PAGE_ROUTE} does not exist"
+            assert False, f'Template {ADD_TIP_PAGE_ROUTE} does not exist'
         try:
             get_template(EDIT_TIP_PAGE_ROUTE)
         except TemplateDoesNotExist:
-            assert False, f"Template {EDIT_TIP_PAGE_ROUTE} does not exist"
+            assert False, f'Template {EDIT_TIP_PAGE_ROUTE} does not exist'
 
     def test_delete_tip_function(self, client, generate_tip):
         generate_tip.save()

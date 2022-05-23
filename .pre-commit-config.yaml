@@ -1,0 +1,41 @@
+repos:
+
+# black
+- repo: https://github.com/psf/black
+  rev: stable
+  hooks:
+    - id: black
+      exclude: '.*/migrations($|/.*)'
+      args: # arguments to configure black
+        - --line-length=120
+        - --include='\.pyi?$'
+        - --skip-string-normalization
+        # these folders wont be formatted by black
+        - --exclude="""\.git |
+          \.__pycache__|
+          \.hg|
+          \.mypy_cache|
+          \.tox|
+          \.venv|
+          _build|
+          buck-out|
+          build|
+          dist"""
+      language_version: python3.9
+
+# flake8
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v2.3.0
+  hooks:
+    - id: flake8
+      args: # arguments to configure flake8
+        # making isort line length compatible with black
+        - "--max-line-length=120"
+        - "--exclude=**/migrations/**"
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+    -   id: check-yaml
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+    -   id: double-quote-string-fixer

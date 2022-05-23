@@ -10,7 +10,7 @@ def board(request):
 
 
 def add_tip(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = TipForm(request.POST)
         if form.is_valid():
             form.save()
@@ -24,7 +24,7 @@ def edit_tip(request, tip_id):
     tip = get_object_or_404(Tip, pk=tip_id)
     form = TipForm(request.POST or None, instance=tip)
     context = {'form': form}
-    if request.method == "POST":
+    if request.method == 'POST':
         if form.is_valid():
             tip = form.save(commit=False)
             tip.save()

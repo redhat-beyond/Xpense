@@ -5,9 +5,23 @@ from django.core.management import call_command
 from house.models import House, City, Country
 from expenses.models import Expenses
 
-from tests.const import HOUSE_NAME, HOUSE_PUBLIC, HOUSE_PARENT_PROFESSION_2, HOUSE_PARENT_PROFESSION_1, HOUSE_INCOME, \
-    HOUSE_CHILDREN, HOUSE_DESCRIPTION, EXPENSE_AMOUNT, EXPENSE_DATE, EXPENSE_CATEGORY, USERNAME, PASSWORD, FIRSTNAME, \
-    LASTNAME, EMAIL
+from tests.const import (
+    HOUSE_NAME,
+    HOUSE_PUBLIC,
+    HOUSE_PARENT_PROFESSION_2,
+    HOUSE_PARENT_PROFESSION_1,
+    HOUSE_INCOME,
+    HOUSE_CHILDREN,
+    HOUSE_DESCRIPTION,
+    EXPENSE_AMOUNT,
+    EXPENSE_DATE,
+    EXPENSE_CATEGORY,
+    USERNAME,
+    PASSWORD,
+    FIRSTNAME,
+    LASTNAME,
+    EMAIL,
+)
 
 
 @pytest.fixture
@@ -16,8 +30,8 @@ def generate_house(db):
         user=UserFactory(),
         name=HOUSE_NAME,
         public=HOUSE_PUBLIC,
-        country=Country.objects.get(name="Israel"),
-        city=City.objects.get(name="Tel Aviv"),
+        country=Country.objects.get(name='Israel'),
+        city=City.objects.get(name='Tel Aviv'),
         parent_profession_1=HOUSE_PARENT_PROFESSION_1,
         parent_profession_2=HOUSE_PARENT_PROFESSION_2,
         income=HOUSE_INCOME,
