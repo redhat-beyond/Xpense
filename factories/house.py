@@ -1,6 +1,7 @@
 import random
 import factory
 from factory.django import DjangoModelFactory
+from factories.user import UserFactory
 from house.models import House, Country, City, Job
 
 
@@ -8,7 +9,7 @@ class HouseFactory(DjangoModelFactory):
     class Meta:
         model = House
 
-    user = factory.LazyAttribute(lambda x: x.user)
+    user = factory.LazyAttribute(lambda x: UserFactory())
     name = factory.Faker('name')
     public = factory.Faker('boolean')
     country = factory.Iterator(Country.objects.all())

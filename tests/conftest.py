@@ -1,7 +1,7 @@
 import pytest
 from django.contrib.auth.models import User
-
 from factories.user import UserFactory
+from django.core.management import call_command
 from house.models import House, City, Country
 from expenses.models import Expenses
 
@@ -40,3 +40,11 @@ def new_user():
     user.set_password(PASSWORD)
     user.save()
     return user
+
+
+@pytest.fixture(scope='session')
+def django_db_setup(django_db_setup, django_db_blocker):
+    fixtures = ['countries_cities']
+
+    with django_db_blocker.unblock():
+        call_command('loaddata', *fixtures)

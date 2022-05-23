@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.db import models
+from smart_selects.db_fields import ChainedForeignKey
 
 
 class Country(models.Model):
@@ -49,8 +50,15 @@ class House(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     name = models.CharField(max_length=50)
     public = models.BooleanField(default=False)
-    country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
-    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True)
+    city = ChainedForeignKey(
+        "house.City",
+        chained_field="country",
+        chained_model_field="country",
+        show_all=False,
+        auto_choose=True,
+        null=True,
+    )
     parent_profession_1 = models.CharField(max_length=50, choices=Job.choices, default=Job.OTHER)
     parent_profession_2 = models.CharField(max_length=50, choices=Job.choices, default=Job.OTHER)
     income = models.IntegerField(null=True, blank=True, validators=[MinValueValidator(0)])

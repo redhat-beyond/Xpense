@@ -4,10 +4,10 @@
     <form
             method="post"
             id="HouseFilter"
-            data-cities-url="{% url 'house:ajax_load_cities' %}"
             novalidate
     >
         <table>
+            {{ form.media.js }}
             {% for field in form %}
                 <tr>
                     {%if not "income" in field.label_tag%}
@@ -49,32 +49,4 @@
         </table>
         {% csrf_token %}
     </form>
-
-<script>
-  const url = $("#HouseFilter").attr("data-cities-url");
-
-  $(document).ready(function () {
-    change_cities($("#id_country").val());
-  });
-
-  $("#id_country").change(function () {
-    change_cities($(this).val());
-  });
-
-  function change_cities(countryId) {
-    if (countryId === "") return;
-    $.ajax({
-      url: url,
-      data: {
-        country: countryId,
-      },
-      success: function (data) {
-        var id = $("#id_city").val();
-        $("#id_city").html(data);
-        document.querySelector("#id_city").value = id;
-      },
-    });
-  }
-</script>
-
 {% endblock %}

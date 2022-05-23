@@ -1,0 +1,53 @@
+[
+    {
+        "name": "Israel",
+        "cities": [
+            "Tel Aviv",
+            "Petah Tikva",
+            "Ramat Gan",
+            "Bat Yam",
+            "Kiryat Shmona",
+            "Beer Sheva"
+        ]
+    },
+    {
+        "name": "India",
+        "cities": [
+            "Bengaluru",
+            "Mumbai",
+            "Chennai",
+            "Hyderabad",
+            "New Delhi"
+        ]
+    },
+    {
+        "name": "United States",
+        "cities": [
+            "New York",
+            "San Francisco",
+            "Los Angeles",
+            "Chicago",
+            "Seattle"
+        ]
+    },
+    {
+        "name": "Brazil",
+        "cities": [
+            "Sao Paulo",
+            "Rio de Janeiro",
+            "Belo Horizonte",
+            "Curitiba",
+            "Recife"
+        ]
+    },
+    {
+        "name": "United Kingdom",
+        "cities": [
+            "London",
+            "Huddersfield",
+            "Glasgow",
+            "Edinburgh",
+            "Cambridge"
+        ]
+    }
+]
