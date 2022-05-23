@@ -27,9 +27,9 @@ def global_page(request):
     categories_amounts = Expenses.average_expenses_of_houses_by_categories(houses)
     context = {
         'all_houses': houses,
-        "categories": [category.get('category') for category in categories_amounts],
-        "amounts": [amount.get('average') for amount in categories_amounts],
-        "form": form,
+        'categories': [category.get('category') for category in categories_amounts],
+        'amounts': [amount.get('average') for amount in categories_amounts],
+        'form': form,
     }
     return render(request, GLOBAL_PAGE_ROUTE, context)
 
@@ -48,20 +48,22 @@ def house_view(request):
 
 @login_required
 def house_create(request):
-    errorMsg = ""
+    errorMsg = ''
     if request.method == 'POST':
         house_form = HouseCreationForm(request.POST)
         if house_form.is_valid():
             cleaned_data = house_form.cleaned_data
-            House.create_house(user=request.user,
-                               name=cleaned_data['name'],
-                               public=cleaned_data['public'],
-                               parent_profession_1=cleaned_data['parent_profession_1'],
-                               parent_profession_2=cleaned_data['parent_profession_2'],
-                               country=cleaned_data['country'],
-                               city=cleaned_data['city'],
-                               children=cleaned_data['children'],
-                               income=cleaned_data['income'])
+            House.create_house(
+                user=request.user,
+                name=cleaned_data['name'],
+                public=cleaned_data['public'],
+                parent_profession_1=cleaned_data['parent_profession_1'],
+                parent_profession_2=cleaned_data['parent_profession_2'],
+                country=cleaned_data['country'],
+                city=cleaned_data['city'],
+                children=cleaned_data['children'],
+                income=cleaned_data['income'],
+            )
             return HttpResponseRedirect('/../house')
     else:
         house_form = HouseCreationForm()

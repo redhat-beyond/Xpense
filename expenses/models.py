@@ -37,7 +37,10 @@ class Expenses(models.Model):
 
     @staticmethod
     def average_expenses_of_houses_by_categories(houses) -> QuerySet:
-        filtered_expenses = Expenses.objects.filter(
-            house_name__user__in=houses.values_list('user')).order_by().values(
-            'category').annotate(average=Avg("amount", output_field=IntegerField()))
+        filtered_expenses = (
+            Expenses.objects.filter(house_name__user__in=houses.values_list('user'))
+            .order_by()
+            .values('category')
+            .annotate(average=Avg('amount', output_field=IntegerField()))
+        )
         return filtered_expenses

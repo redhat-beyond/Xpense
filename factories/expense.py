@@ -33,4 +33,4 @@ class ExpenseFactory(DjangoModelFactory):
     category = factory.LazyAttribute(lambda x: random.choice([tup[1] for tup in Expenses.Category.choices]))
     amount = factory.LazyAttribute(lambda x: random.randint(5000, 25000))
     date = factory.LazyAttribute(lambda x: ExpenseFactory.random_date(x.month))
-    description = ""
+    description = ''

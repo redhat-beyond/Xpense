@@ -24,7 +24,7 @@ the financial household management crisis of our time could be helped.
 
 In order to run **Xpense** you should install:
 
-- [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) 
+- [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 - [Vagrant](https://www.vagrantup.com/downloads)
 - [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 

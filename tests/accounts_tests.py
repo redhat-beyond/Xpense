@@ -43,20 +43,23 @@ class TestSignupPage:
         assert 'registration/signup.html' in response.template_name
 
     def test_signup_user(self, client):
-        response = client.post('/accounts/signup/',
-                               {'username': USERNAME, 'password1': PASSWORD, 'password2': PASSWORD})
+        response = client.post(
+            '/accounts/signup/', {'username': USERNAME, 'password1': PASSWORD, 'password2': PASSWORD}
+        )
         assert response.status_code == 302
         assert response.url == '/accounts/login/'
 
     def test_bad_signup(self, client):
-        response = client.post('/accounts/signup/',
-                               {'username': USERNAME, 'password1': PASSWORD, 'password2': PASSWORD_NOT_MATCH})
+        response = client.post(
+            '/accounts/signup/', {'username': USERNAME, 'password1': PASSWORD, 'password2': PASSWORD_NOT_MATCH}
+        )
         assert response.status_code == 200
         assert 'registration/signup.html' in response.template_name
 
     def test_signup_login_flow(self, client):
-        response = client.post('/accounts/signup/',
-                               {'username': USERNAME, 'password1': PASSWORD, 'password2': PASSWORD})
+        response = client.post(
+            '/accounts/signup/', {'username': USERNAME, 'password1': PASSWORD, 'password2': PASSWORD}
+        )
         assert response.status_code == 302
         response = client.post('/accounts/login/', {'username': USERNAME, 'password': PASSWORD})
         assert response.status_code == 302

@@ -154,32 +154,32 @@ def test_mine_page_expenses_table_views_templates():
     try:
         get_template(MINE_EXPENSES_TITLE_ROUTE)
     except TemplateDoesNotExist:
-        assert False, f"Template {MINE_EXPENSES_TITLE_ROUTE} does not exist"
+        assert False, f'Template {MINE_EXPENSES_TITLE_ROUTE} does not exist'
 
 
 def test_mine_page_house_table_views_templates():
     try:
         get_template(MINE_HOUSE_TABLE_ROUTE)
     except TemplateDoesNotExist:
-        assert False, f"Template {MINE_HOUSE_TABLE_ROUTE} does not exist"
+        assert False, f'Template {MINE_HOUSE_TABLE_ROUTE} does not exist'
 
 
 def test_mine_page_house_table_title_views_templates():
     try:
         get_template(MINE_HOUSE_TABLE_TITLE_ROUTE)
     except TemplateDoesNotExist:
-        assert False, f"Template {MINE_HOUSE_TABLE_TITLE_ROUTE} does not exist"
+        assert False, f'Template {MINE_HOUSE_TABLE_TITLE_ROUTE} does not exist'
 
 
 def test_mine_page_mine_page_views_templates():
     try:
         get_template(MINE_MINE_PAGE_ROUTE)
     except TemplateDoesNotExist:
-        assert False, f"Template {MINE_MINE_PAGE_ROUTE} does not exist"
+        assert False, f'Template {MINE_MINE_PAGE_ROUTE} does not exist'
 
 
 def test_mine_sidebar_views_templates():
     try:
         get_template(MINE_SIDEBAR_ROUTE)
     except TemplateDoesNotExist:
-        assert False, f"Template {MINE_SIDEBAR_ROUTE} does not exist"
+        assert False, f'Template {MINE_SIDEBAR_ROUTE} does not exist'
