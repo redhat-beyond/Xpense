@@ -2,7 +2,7 @@ repos:
 
 # black
 - repo: https://github.com/psf/black
-  rev: stable
+  rev: 22.3.0
   hooks:
     - id: black
       exclude: '.*/migrations($|/.*)'
@@ -21,7 +21,6 @@ repos:
           buck-out|
           build|
           dist"""
-      language_version: python3.9
 
 # flake8
 - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -33,7 +32,7 @@ repos:
         - "--max-line-length=120"
         - "--exclude=**/migrations/**"
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.3.0
+    rev: v4.2.0
     hooks:
     -   id: check-yaml
     -   id: end-of-file-fixer
