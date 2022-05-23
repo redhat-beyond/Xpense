@@ -8,5 +8,4 @@ urlpatterns = [
     path('global/', views.global_page, name='global_page'),
     path('house_create/', views.house_create, name='house_create'),
     path('house/', views.house_view, name='house_view'),
-    path('ajax/load-cities/', views.load_cities, name='ajax_load_cities'),
 ]

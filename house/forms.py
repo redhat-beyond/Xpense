@@ -1,6 +1,6 @@
 from django import forms
 
-from house.models import House, Job, Country, City
+from house.models import House, Job
 
 
 class HouseForm(forms.ModelForm):
@@ -22,12 +22,13 @@ class HouseForm(forms.ModelForm):
         self.fields['children'].required = False
 
 
-class HouseCreationForm(forms.Form):
-    name = forms.CharField(label='House Name', required=True)
+class HouseCreationForm(forms.ModelForm):
+    class Meta:
+        model = House
+        fields = ('name', 'country', 'city')
+
     parent_profession_1 = forms.ChoiceField(choices=Job.choices, required=True)
     parent_profession_2 = forms.ChoiceField(choices=Job.choices, required=True)
-    country = forms.ModelChoiceField(queryset=Country.objects.all(), required=True)
-    city = forms.ModelChoiceField(queryset=City.objects.all(), required=True)
     income = forms.IntegerField(label='Monthly Income', required=True, min_value=0)
     children = forms.IntegerField(label='Number of Children', required=True, min_value=0, max_value=20)
     public = forms.BooleanField(label='public', required=False, initial=True)

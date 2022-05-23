@@ -3,11 +3,11 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from expenses.models import Expenses
-from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE
+from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE
 from house.constants import MINE_MINE_PAGE_ROUTE, HOUSE_CREATE_ROUTE
 from .forms import HouseForm, HouseCreationForm
 from .helpers import _filter_houses_by_form
-from .models import House, City
+from .models import House
 
 
 def home_page(request):
@@ -44,13 +44,6 @@ def house_view(request):
     expenses_list = Expenses.objects.filter(house_name=house)
     context = {'house': house, 'house_expenses': expenses_list}
     return render(request, MINE_MINE_PAGE_ROUTE, context)
-
-
-def load_cities(request):
-    country_id = request.GET.get('country')
-    cities = City.objects.filter(country_id=country_id).order_by('name')
-    context = {'cities': cities}
-    return render(request, GLOBAL_PAGE_CITY_DROPDOWN_ROUTE, context)
 
 
 @login_required

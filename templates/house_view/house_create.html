@@ -11,8 +11,11 @@
                 </div>
                 <div class="card-body" style="color: rgb(0, 0, 0); background: rgba(252, 252, 252, 0.3); width: 500px;">
                     <form method="POST">
+                        {{ form.media.js }}
                         {% csrf_token %}
-                        {% form form=form %}{% endform %}
+                        {% form form=form %}
+                            {% part form.city control %}{{form.city}}{% endpart %}
+                        {% endform %}
                         <button class="btn btn-primary" id="submit-button" type="submit">Submit</button>
                     </form>
                 </div>

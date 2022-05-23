@@ -1,0 +1,245 @@
+[
+    {
+        "fields": {
+            "name": "Israel"
+        },
+        "model": "house.Country",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "country": 1,
+            "name": "Tel Aviv"
+        },
+        "model": "house.city",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "country": 1,
+            "name": "Petah Tikva"
+        },
+        "model": "house.city",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "country": 1,
+            "name": "Ramat Gan"
+        },
+        "model": "house.city",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "country": 1,
+            "name": "Bat Yam"
+        },
+        "model": "house.city",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "country": 1,
+            "name": "Kiryat Shmona"
+        },
+        "model": "house.city",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "country": 1,
+            "name": "Beer Sheva"
+        },
+        "model": "house.city",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "name": "India"
+        },
+        "model": "house.Country",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "country": 2,
+            "name": "Bengaluru"
+        },
+        "model": "house.city",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "country": 2,
+            "name": "Mumbai"
+        },
+        "model": "house.city",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "country": 2,
+            "name": "Chennai"
+        },
+        "model": "house.city",
+        "pk": 9
+    },
+    {
+        "fields": {
+            "country": 2,
+            "name": "Hyderabad"
+        },
+        "model": "house.city",
+        "pk": 10
+    },
+    {
+        "fields": {
+            "country": 2,
+            "name": "New Delhi"
+        },
+        "model": "house.city",
+        "pk": 11
+    },
+    {
+        "fields": {
+            "name": "United States"
+        },
+        "model": "house.Country",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "country": 3,
+            "name": "New York"
+        },
+        "model": "house.city",
+        "pk": 12
+    },
+    {
+        "fields": {
+            "country": 3,
+            "name": "San Francisco"
+        },
+        "model": "house.city",
+        "pk": 13
+    },
+    {
+        "fields": {
+            "country": 3,
+            "name": "Los Angeles"
+        },
+        "model": "house.city",
+        "pk": 14
+    },
+    {
+        "fields": {
+            "country": 3,
+            "name": "Chicago"
+        },
+        "model": "house.city",
+        "pk": 15
+    },
+    {
+        "fields": {
+            "country": 3,
+            "name": "Seattle"
+        },
+        "model": "house.city",
+        "pk": 16
+    },
+    {
+        "fields": {
+            "name": "Brazil"
+        },
+        "model": "house.Country",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "country": 4,
+            "name": "Sao Paulo"
+        },
+        "model": "house.city",
+        "pk": 17
+    },
+    {
+        "fields": {
+            "country": 4,
+            "name": "Rio de Janeiro"
+        },
+        "model": "house.city",
+        "pk": 18
+    },
+    {
+        "fields": {
+            "country": 4,
+            "name": "Belo Horizonte"
+        },
+        "model": "house.city",
+        "pk": 19
+    },
+    {
+        "fields": {
+            "country": 4,
+            "name": "Curitiba"
+        },
+        "model": "house.city",
+        "pk": 20
+    },
+    {
+        "fields": {
+            "country": 4,
+            "name": "Recife"
+        },
+        "model": "house.city",
+        "pk": 21
+    },
+    {
+        "fields": {
+            "name": "United Kingdom"
+        },
+        "model": "house.Country",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "country": 5,
+            "name": "London"
+        },
+        "model": "house.city",
+        "pk": 22
+    },
+    {
+        "fields": {
+            "country": 5,
+            "name": "Huddersfield"
+        },
+        "model": "house.city",
+        "pk": 23
+    },
+    {
+        "fields": {
+            "country": 5,
+            "name": "Glasgow"
+        },
+        "model": "house.city",
+        "pk": 24
+    },
+    {
+        "fields": {
+            "country": 5,
+            "name": "Edinburgh"
+        },
+        "model": "house.city",
+        "pk": 25
+    },
+    {
+        "fields": {
+            "country": 5,
+            "name": "Cambridge"
+        },
+        "model": "house.city",
+        "pk": 26
+    }
+]
