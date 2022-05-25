@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% load static %}
+{% load material_form %}
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+        <p class="newexpense">
+        <h1>Add Expense</h1></p>
+        <form method="POST">
+            {% csrf_token %}
+            {% form form=form %}{% endform %}
+            <input type="submit" value="Add Expense">
+        </form>
+    </div>
+{% endblock %}

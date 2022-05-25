@@ -1,13 +1,17 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-
 from expenses.models import Expenses
-from house.constants import HOME_PAGE_ROUTE, GLOBAL_PAGE_ROUTE
-from house.constants import MINE_MINE_PAGE_ROUTE, HOUSE_CREATE_ROUTE
-from .forms import HouseForm, HouseCreationForm
-from .helpers import _filter_houses_by_form
+from house.constants import (
+    HOME_PAGE_ROUTE,
+    GLOBAL_PAGE_ROUTE,
+    MINE_PAGE_ROUTE,
+    HOUSE_CREATE_ROUTE,
+    MINE_ADD_EXPENSE_ROUTE,
+)
+from .forms import HouseForm, HouseCreationForm, ExpenseForm
 from .models import House
+from .helpers import _filter_houses_by_form
 
 
 def home_page(request):
@@ -43,12 +47,33 @@ def house_view(request):
     house = user.house
     expenses_list = Expenses.objects.filter(house_name=house)
     context = {'house': house, 'house_expenses': expenses_list}
-    return render(request, MINE_MINE_PAGE_ROUTE, context)
+    return render(request, MINE_PAGE_ROUTE, context)
+
+
+@login_required
+def add_expense(request):
+    error_message = ''
+    if request.method == 'POST':
+        expense_form = ExpenseForm(request.POST)
+        if expense_form.is_valid():
+            user = request.user
+            house = user.house
+            Expenses.create_expense(
+                house_name=house,
+                amount=expense_form.data['amount'],
+                date=expense_form.data['date'],
+                category=expense_form.data['category'],
+                description=expense_form.data['description'],
+            )
+            return HttpResponseRedirect('/../house')
+    else:
+        expense_form = ExpenseForm()
+    return render(request, MINE_ADD_EXPENSE_ROUTE, {'form': expense_form, 'msg': error_message})
 
 
 @login_required
 def house_create(request):
-    errorMsg = ''
+    error_message = ''
     if request.method == 'POST':
         house_form = HouseCreationForm(request.POST)
         if house_form.is_valid():
@@ -68,4 +93,4 @@ def house_create(request):
     else:
         house_form = HouseCreationForm()
 
-    return render(request, HOUSE_CREATE_ROUTE, {'form': house_form, 'msg': errorMsg})
+    return render(request, HOUSE_CREATE_ROUTE, {'form': house_form, 'msg': error_message})
