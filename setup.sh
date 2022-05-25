@@ -4,6 +4,7 @@
 
 # Install Pipenv, the -n option makes sudo fail instead of asking for a
 # password if we don’t have sufficient privileges to run it
+sudo -n dnf install -y git
 sudo -n dnf install -y pipenv
 cd /vagrant
 
