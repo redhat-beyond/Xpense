@@ -22,18 +22,29 @@ def test_create_expense(generate_expense):
         generate_expense.amount,
         generate_expense.date,
         generate_expense.category,
-        generate_expense.description)
+        generate_expense.description,
+    )
     assert expense in Expenses.objects.all()
 
 
 def _helper_create_houses():
     house_1 = HouseFactory(user=UserFactory())
     house_2 = HouseFactory(user=UserFactory())
-    Expenses(house_name=house_1, amount=100, date=DATE, category=Expenses.Category.FOOD).save()
-    Expenses(house_name=house_1, amount=200, date=DATE, category=Expenses.Category.FOOD).save()
-    Expenses(house_name=house_2, amount=300, date=DATE, category=Expenses.Category.FOOD).save()
-    Expenses(house_name=house_2, amount=300, date=DATE, category=Expenses.Category.KIDS).save()
-    Expenses(house_name=house_2, amount=400, date=DATE, category=Expenses.Category.KIDS).save()
+    Expenses(
+        house_name=house_1, amount=100, date=DATE, category=Expenses.Category.FOOD, description='description'
+    ).save()
+    Expenses(
+        house_name=house_1, amount=200, date=DATE, category=Expenses.Category.FOOD, description='description'
+    ).save()
+    Expenses(
+        house_name=house_2, amount=300, date=DATE, category=Expenses.Category.FOOD, description='description'
+    ).save()
+    Expenses(
+        house_name=house_2, amount=300, date=DATE, category=Expenses.Category.KIDS, description='description'
+    ).save()
+    Expenses(
+        house_name=house_2, amount=400, date=DATE, category=Expenses.Category.KIDS, description='description'
+    ).save()
 
 
 def test_average_expenses_of_houses_by_categories(db):

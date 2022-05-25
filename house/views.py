@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from expenses.models import Expenses
 from house.constants import (
     HOME_PAGE_ROUTE,
@@ -8,6 +8,7 @@ from house.constants import (
     MINE_PAGE_ROUTE,
     HOUSE_CREATE_ROUTE,
     MINE_ADD_EXPENSE_ROUTE,
+    MINE_EDIT_EXPENSE_ROUTE,
 )
 from .forms import HouseForm, HouseCreationForm, ExpenseForm
 from .models import House
@@ -94,3 +95,36 @@ def house_create(request):
         house_form = HouseCreationForm()
 
     return render(request, HOUSE_CREATE_ROUTE, {'form': house_form, 'msg': error_message})
+
+
+@login_required
+def edit_expense(request, id):
+    user = request.user
+    house = user.house
+    expenses_list = Expenses.objects.filter(house_name=house)
+    expense = get_object_or_404(Expenses, pk=id)
+    if expense not in expenses_list:
+        request.status_code = 400
+        return request
+    form = ExpenseForm(request.POST or None, instance=expense)
+    context = {'form': form}
+    if request.method == 'POST':
+        if form.is_valid():
+            expense = form.save(commit=False)
+            expense.save()
+            return HttpResponseRedirect('/../house')
+    else:
+        return render(request, MINE_EDIT_EXPENSE_ROUTE, context)
+
+
+@login_required
+def delete_expense(request, id):
+    user = request.user
+    house = user.house
+    expenses_list = Expenses.objects.filter(house_name=house)
+    expense = get_object_or_404(Expenses, pk=id)
+    if expense not in expenses_list:
+        request.status_code = 400
+        return request
+    expense.delete()
+    return HttpResponseRedirect('/../house')

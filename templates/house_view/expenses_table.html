@@ -1,5 +1,5 @@
 {%block table%}
-<table border="1" class="table" style="text-align: center">
+<table class="table" style="text-align: center">
   <thead>
     <tr>
       <th>#</th>
@@ -7,6 +7,7 @@
       <th>Category</th>
       <th>Amount</th>
       <th>Description</th>
+      <th>Edit/Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -17,6 +18,12 @@
       <td>{{ expense.category }}</td>
       <td>{{ expense.amount }}</td>
       <td>{{ expense.description }}</td>
+      <td>
+          <div class="btn-group" role="group">
+            <a class="btn btn-secondary" href="edit_expense/{{ expense.id }}" role="button">Edit Expense</a>
+            <a class="btn btn-secondary" href="delete_expense/{{ expense.id }}" role="button">Delete Expense</a>
+          </div>
+      </td>
     </tr>
     {% empty %}
     <tr>
