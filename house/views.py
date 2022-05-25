@@ -9,6 +9,7 @@ from house.constants import (
     HOUSE_CREATE_ROUTE,
     MINE_ADD_EXPENSE_ROUTE,
     MINE_EDIT_EXPENSE_ROUTE,
+    MINE_EDIT_HOUSE,
     BY_MONTH,
     MONTHS,
 )
@@ -152,3 +153,18 @@ def delete_expense(request, id):
         return request
     expense.delete()
     return HttpResponseRedirect('/../house')
+
+
+@login_required
+def edit_house(request):
+    user = request.user
+    house = user.house
+    form = HouseForm(request.POST or None, instance=house)
+    context = {'form': form}
+    if request.method == 'POST':
+        if form.is_valid():
+            house = form.save(commit=False)
+            house.save()
+            return HttpResponseRedirect('/../house')
+    else:
+        return render(request, MINE_EDIT_HOUSE, context)

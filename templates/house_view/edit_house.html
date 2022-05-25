@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% load material_form %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/house_create.css' %}"/>
+    <div id="house_create">
+        <div class="d-flex justify-content-center h-100">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Edit Your House Information</h3>
+                </div>
+                <div class="card-body" style="color: rgb(0, 0, 0); background: rgba(252, 252, 252, 0.3); width: 500px;">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {% form form=form %}{% endform %}
+                        <button class="btn btn-primary" id="submit-button" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -15,6 +15,22 @@ def test_delete_house(generate_house):
     assert generate_house not in House.objects.all()
 
 
+def test_create_house(generate_house):
+    house = House.create_house(
+        UserFactory(),
+        generate_house.name,
+        generate_house.public,
+        generate_house.country,
+        generate_house.city,
+        generate_house.parent_profession_1,
+        generate_house.parent_profession_2,
+        generate_house.income,
+        generate_house.children,
+        generate_house.description,
+    )
+    assert house in House.objects.all()
+
+
 def test_filter_parent_profession_1(db):
     pass_filter_house_create()
     HouseFactory(
