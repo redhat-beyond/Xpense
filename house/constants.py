@@ -1,4 +1,4 @@
-HOME_PAGE_ROUTE = 'home.html'
+HOME_PAGE_ROUTE = 'home/home.html'
 GLOBAL_PAGE_ROUTE = 'global/global.html'
 MINE_EXPENSES_TABLE_ROUTE = 'house_view/expenses_table.html'
 MINE_HOUSE_TABLE_ROUTE = 'house_view/house_table.html'
