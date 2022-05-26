@@ -1,0 +1,117 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,700);
+@import url(http://weloveiconfonts.com/api/?family=entypo);
+
+/* entypo */
+[class*="entypo-"]:before {
+    font-family: 'entypo', sans-serif;
+}
+
+h1 {
+    text-align: center;
+    font-weight: 300;
+    font-size: 5em;
+    border-bottom: 2px solid #2ecc71;
+    margin-bottom: 1em;
+}
+
+a {
+    text-decoration: none;
+    color: #2ecc71;
+    border-bottom: 1px solid #333;
+    transition: all 0.4s ease;
+    margin-right: 30px;
+}
+
+p {
+    font-size: 1.5em;
+}
+
+a:hover {
+    color: #333;
+    border-bottom: 1px solid #2ecc71;
+}
+
+.home_nav {
+    top: 0;
+    position: sticky;
+    z-index: 100;
+}
+
+.home_nav a {
+    padding: 1em;
+    box-sizing: border-box;
+    border-bottom: 1px solid #2ecc71;
+}
+
+.home_nav a:hover {
+    border-bottom: 2px solid #2ecc71;
+    background: rgba(238, 238, 238, 0.5);
+}
+
+.wrapper {
+    position: relative;
+    box-shadow: 0 0 1em #333;
+}
+
+.wrapper section {
+    position: relative;
+    background: #eee;
+    margin-bottom: 2em;
+}
+
+.wrapper section article {
+    width: 70%;
+    margin: 0 auto;
+    padding: 2em 0;
+}
+
+
+.wrapper section article p:last-of-type {
+    margin-bottom: 0;
+}
+
+.wrapper section:after {
+    content: "";
+    display: block;
+    position: relative;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 40em;
+    width: 100%;
+}
+
+.wrapper section:nth-child(1):after {
+    background-image: url("https://www.travelperk.com/wp-content/uploads/Guides_Travel-and-Expense-management.png");
+}
+
+.wrapper section:nth-child(2):after {
+    background-image: url("https://www.beanworks.com/wp-content/uploads/SmallExpenses.png");
+}
+
+.wrapper section:nth-child(3):after {
+    background-image: url("https://facturaclave.com/images/image-03.webp");
+}
+
+.wrapper section:nth-child(4):after {
+    background-image: url("https://www.paymentsjournal.com/wp-content/uploads/2022/01/67Z_2112.w012.n001.18A.p20.181-scaled.jpg");
+}
+
+.wrapper section:nth-child(5):after {
+    background-image: url("https://assets.entrepreneur.com/content/3x2/2000/1634586961-1618336905-1615388040-Pranav-2000x1334.jpg?crop=4:3");
+}
+
+.wrapper section:nth-child(6):after {
+    background-image: url("https://www.safewise.com/app/uploads/2016/06/fireworks-social.jpg");
+}
+
+@media only screen and (max-width: 600px) {
+    .wrapper section article {
+        width: 80%;
+    }
+
+    .wrapper section:after {
+        height: 15em;
+    }
+}
