@@ -1,9 +1,11 @@
 from django.db import models
 from django.utils import timezone
 from expenses.models import Expenses
+from django.contrib.auth.models import User
 
 
 class Tip(models.Model):
+    user_token = User.get_session_auth_hash
     author = models.CharField(max_length=32)
     text = models.TextField(max_length=200)
     date = models.DateTimeField(default=timezone.now)
@@ -17,4 +19,5 @@ class Tip(models.Model):
         return tip
 
     def __str__(self):
-        return self.category
+        preview_tip = self.text[:10] + '...'
+        return preview_tip

@@ -12,6 +12,7 @@ django-crispy-forms = "==1.14.0"
 django-material = "*"
 django-smart-selects = {editable = true, ref = "master", git = "https://github.com/jazzband/django-smart-selects.git"}
 pre-commit = "*"
+pytest = "*"
 
 [dev-packages]
 flake8 = "==4.0.1"
