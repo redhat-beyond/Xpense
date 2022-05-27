@@ -9,10 +9,14 @@ from house.constants import (
     HOUSE_CREATE_ROUTE,
     MINE_ADD_EXPENSE_ROUTE,
     MINE_EDIT_EXPENSE_ROUTE,
+    BY_MONTH,
+    MONTHS,
 )
-from .forms import HouseForm, HouseCreationForm, ExpenseForm
+from .forms import HouseForm, HouseCreationForm, ExpenseForm, YearFilterForm
 from .models import House
 from .helpers import _filter_houses_by_form
+from django.db.models import Sum
+from datetime import datetime
 
 
 def home_page(request):
@@ -47,7 +51,27 @@ def house_view(request):
 
     house = user.house
     expenses_list = Expenses.objects.filter(house_name=house)
-    context = {'house': house, 'house_expenses': expenses_list}
+
+    if request.method == 'POST':
+        form = YearFilterForm(request.POST)
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+            expenses_list = expenses_list.filter(date__year=cleaned_data['year'])
+    else:
+        form = YearFilterForm()
+        current_year = datetime.now().year
+        expenses_list = expenses_list.filter(date__year=current_year)
+
+    expenses_sum_by_month = expenses_list.values(BY_MONTH).annotate(sum=Sum('amount'))
+    categories = MONTHS
+
+    context = {
+        'form': form,
+        'house': house,
+        'house_expenses': expenses_list,
+        'categories': [categories[amount.get(BY_MONTH) - 1] for amount in expenses_sum_by_month],
+        'amounts': [amount.get('sum') for amount in expenses_sum_by_month],
+    }
     return render(request, MINE_PAGE_ROUTE, context)
 
 

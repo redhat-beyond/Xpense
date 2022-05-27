@@ -26,22 +26,30 @@
     overflow-y:scroll;
 }
 
-.btn-primary{
-  background-color: #37474f;
-  color: #fff;
-  cursor: pointer; /* Pointer/hand icon */
-  width: 12%; /* Set a width if needed */
+.chart-container {
+  text-align: justify;
+  margin-top: 1.5em;
+  width: 83%;
   position: fixed;
-  left: 87%;
-  display: block; /* Make the buttons appear below each other */
-  bottom: 32%;
-  margin: 0;
-  text-decoration: none;
-  letter-spacing: 0.5px;
+  right: 0;
+  background-color: inherit;
 }
 
 @media screen and (max-height: 450px) {
   .sidebar {
     padding-top: 15px;
   }
+}
+
+.mine-tool-bar {
+  height: 8%;
+  width: 83%;
+  text-align: justify;
+  position: fixed;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  bottom: 30%;
+  right: 0;
+  z-index: 9999;
 }

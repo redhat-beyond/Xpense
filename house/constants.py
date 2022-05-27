@@ -11,3 +11,19 @@ USER_LOGIN_PAGE_ROUTE = 'registration/login.html'
 USER_SIGNUP_ROUTE = 'registration/signup.html'
 HOUSE_CREATE_ROUTE = 'house_view/house_create.html'
 MINE_EDIT_EXPENSE_ROUTE = 'house_view/edit_expense.html'
+MINE_CHARTS_ROUTE = 'house_view/mine_chart.html'
+BY_MONTH = 'date__month'
+MONTHS = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+]

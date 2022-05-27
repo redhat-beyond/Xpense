@@ -1,10 +1,17 @@
-{% extends "base.html" %} {%load static%} {%block content%}
+{% extends "base.html" %} {%load static%} {% load material_form %} {%block styles%}
 <link rel="stylesheet" type="text/css" href="{% static 'css/mine.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/chart.css' %}" />
+{% endblock styles %} {%block content%}
 <body>
   <div class="sidebar-container">{% include 'house_view/sidebar.html' %}</div>
-  <div>
-      <a class="btn btn-primary" href="{% url 'house:add_expense'%}" role="button">Add Expense</a>
-      <div class="expenses_table-container">{% include 'house_view/expenses_table.html' %}</div>
+  <div class="mine-tool-bar">
+    <form method="post">
+      {% csrf_token %}
+      {% form form=form %}{% endform %}
+    </form>
+    <a class="btn" href="{% url 'house:add_expense'%}" role="button">Add Expense</a>
   </div>
+  <div class="expenses_table-container">{% include 'house_view/expenses_table.html' %}</div>
+  <div class="chart-container">{% include 'house_view/mine_chart.html' %} </div>
 </body>
 {% endblock %}
