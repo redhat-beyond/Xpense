@@ -6,6 +6,7 @@ from house.constants import (
     MINE_PAGE_ROUTE,
     MINE_SIDEBAR_ROUTE,
     MINE_EDIT_EXPENSE_ROUTE,
+    MINE_EDIT_HOUSE,
     MINE_CHARTS_ROUTE,
 )
 from factories.expense import ExpenseFactory
@@ -20,8 +21,20 @@ from tests.const import (
     EXPENSE_AMOUNT,
     EXPENSE_DATE,
     EXPENSE_CATEGORY,
+    HOUSE_NAME,
+    HOUSE_PUBLIC,
+    HOUSE_PARENT_PROFESSION_1,
+    HOUSE_PARENT_PROFESSION_2,
+    HOUSE_INCOME,
+    HOUSE_CHILDREN_BEFORE,
+    HOUSE_CHILDREN_AFTER,
+    HOUSE_DESCRIPTION,
+    COUNTRY,
+    CITY,
+    COUNTY_OR_CITY,
 )
 from house.forms import ExpenseForm
+from house.models import House, City, Country
 
 
 @pytest.fixture
@@ -107,6 +120,13 @@ class TestMyHouseViewsAndTemplates:
         response = client.get('/house/delete_expense/1/')
         assert response.status_code == 302
 
+    def test_get_edit_house_view_function_and_templates(self, client, house_factory):
+        response = client.get('/house/edit_house/')
+        assert response.status_code == 200
+
+        template_names = set(template.origin.template_name for template in response.templates)
+        assert MINE_EDIT_HOUSE in template_names
+
 
 @pytest.mark.django_db
 class TestActionsOnExpensesOfMyHouse:
@@ -153,5 +173,49 @@ class TestActionsOnExpensesOfMyHouse:
     def test_delete_expenses_of_my_house(self, client, house_factory, expense_factory):
         response = client.post('/house/delete_expense/1/', EXPENSE_FORM_DATA)
         assert len(Expenses.objects.all()) == 0
+        assert response.status_code == 302
+        assert response.url == '/../house'
+
+    def test_edit_existing_house(self, client, house_factory, new_user):
+        client.force_login(new_user)
+        country = Country.create_country(COUNTRY)
+        house = House.create_house(
+            user=new_user,
+            name=HOUSE_NAME,
+            public=HOUSE_PUBLIC,
+            country=country,
+            city=City.create_city(CITY, country),
+            parent_profession_1=HOUSE_PARENT_PROFESSION_1,
+            parent_profession_2=HOUSE_PARENT_PROFESSION_2,
+            income=HOUSE_INCOME,
+            children=HOUSE_CHILDREN_BEFORE,
+            description=HOUSE_DESCRIPTION,
+        )
+        house.save()
+        house_form = {
+            'public': house.public,
+            'country': COUNTY_OR_CITY,
+            'city': COUNTY_OR_CITY,
+            'parent_profession_1': house.parent_profession_1,
+            'parent_profession_2': house.parent_profession_2,
+            'children': house.children,
+            'income': house.income,
+            'name': house.name,
+        }
+        response = client.post('/house_create/', data=house_form)
+        house_form = {
+            'public': house.public,
+            'country': COUNTY_OR_CITY,
+            'city': COUNTY_OR_CITY,
+            'parent_profession_1': house.parent_profession_1,
+            'parent_profession_2': house.parent_profession_2,
+            'children': HOUSE_CHILDREN_AFTER,
+            'income': house.income,
+            'name': house.name,
+        }
+        response = client.post('/house/edit_house/', data=house_form)
+        edited_house: House = House.objects.all()[0]
+        assert edited_house.children == HOUSE_CHILDREN_AFTER
+        assert len(House.objects.all()) == 1
         assert response.status_code == 302
         assert response.url == '/../house'
