@@ -1,0 +1,38 @@
+{% extends "base.html" %} {%load static%} {%block content%}
+{% for tip in category_filtered_tips %}
+<article class="post vt-post">
+    <div class="row">
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-4">
+            <div class="post-type post-img">
+                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-responsive" alt="image post"
+                    style="height: 200px;">
+
+            </div>
+            <div class="author-info author-info-2">
+                <ul class="list-inline">
+                    <li>
+                        <div class="info">
+                            <p>Posted on:</p>
+                            <strong>{{ tip.date}}</strong>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="info">
+                            <p>Category:</p>
+                            <strong>{{ tip.category }}</strong>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
+            <div class="caption">
+                <h3 class="md-heading">{{ tip.author }}</h3>
+                <p> {{ tip.text }}</p>
+                <a class="btn btn-default" href="#" role="button">Read More</a>
+            </div>
+        </div>
+    </div>
+</article>
+{% endfor %}
+{% endblock %}

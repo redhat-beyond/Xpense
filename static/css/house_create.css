@@ -1,11 +1,12 @@
-#house_create{
-    align-content: center;
-    margin-top: 5%;
-    margin-bottom: auto;
+#house_create {
+  align-content: center;
+  margin-top: 5%;
+  margin-bottom: auto;
 }
 
-#submit-button{
+#submit-button {
   width: 100%;
+
 }
 
 select {
